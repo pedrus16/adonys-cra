@@ -1,12 +1,17 @@
 var module = angular.module('extranetUserModule');
 
-module.factory('UserService', ['$resource', function ($resource) {
+module.constant('API', {
+	baseUrl: 'http://5641ef34062a801100ca82b4.mockapi.io/api'
+});
 
-	var User = $resource('http://5641ef34062a801100ca82b4.mockapi.io/api/users');
+module.factory('UserService', ['$resource', 'API', function ($resource, API) {
+
+	var Users = $resource(API.baseUrl + '/users');
+	var User = $resource(API.baseUrl + '/users/:userId');
 
 	return {
 		getUsers: function() {
-			var users = User.query(function() {
+			var users = Users.query(function() {
 
 			});
 			return users;
