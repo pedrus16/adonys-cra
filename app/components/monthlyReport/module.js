@@ -1,5 +1,3 @@
-'use strict';
-
 var module = angular.module('extranetMonthlyReportModule', []);
 
 module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROLES) {
@@ -8,7 +6,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 	.state('monthly-report', {
 		url: '/monthly-report',
 		templateUrl: 'app/components/monthlyReport/views/list.html',
-		controller: 'MonthlyReportController',
+		controller: 'MonthlyReportsController',
 		data: {
 			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
 		},

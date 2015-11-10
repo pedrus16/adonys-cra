@@ -1,5 +1,3 @@
-'use strict';
-
 var module = angular.module('extranetUserModule', []);
 
 module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROLES) {
@@ -24,6 +22,19 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 		url:'/users',
 		templateUrl: 'app/components/user/views/list.html',
 		controller: 'UsersController',
+		data: {
+			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+		},
+		resolve: {
+            isAuthenticated: function (AuthenticationResolver) {
+                return AuthenticationResolver.resolve();
+            }
+        }
+	})
+	.state('users-detail', {
+		url:'/users/:userId',
+		templateUrl: 'app/components/user/views/user.detail.html',
+		controller: 'UserDetailController',
 		data: {
 			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
 		},

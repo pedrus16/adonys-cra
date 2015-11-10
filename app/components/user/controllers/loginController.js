@@ -1,5 +1,3 @@
-'use strict';
-
 var module = angular.module('extranetUserModule');
 
 module.controller('LoginController', ['$scope', '$rootScope', 'AUTHENTICATION_EVENTS', 'AuthenticationService', 'Session',
@@ -10,8 +8,8 @@ module.controller('LoginController', ['$scope', '$rootScope', 'AUTHENTICATION_EV
 		password: '123456'
 	};
 
-	$scope.login = function (credentials) {
-		AuthenticationService.login(credentials).then(function (user) {
+	$scope.login = function (username, password) {
+		AuthenticationService.login(username, password).then(function (user) {
 			$rootScope.$broadcast(AUTHENTICATION_EVENTS.loginSuccess);
 			Session.create(user.sessionId, user.userId, user.role);
 		}, function () {

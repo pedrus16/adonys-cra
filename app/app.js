@@ -1,6 +1,5 @@
-'use strict';
-
 var extranet = angular.module('extranetApp', [
+	'ngResource',
 	'ui.router',
 	'ui.bootstrap',
 	'extranetUserModule',
@@ -9,15 +8,12 @@ var extranet = angular.module('extranetApp', [
 
 extranet.controller('ApplicationController', ['$scope', function ($scope) {
 	//Useless for now
-	$scope.z = 0;
-	$scope.sum = function() {
-		$scope.z = $scope.x + $scope.y;
-	};
 }]);
 
-extranet.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', function($stateProvider, $urlRouterProvider, $resourceProvider) {
 	
 	$urlRouterProvider.otherwise('/login');
+	$resourceProvider.defaults.stripTrailingSlashes = false;
 
 	// configure html5 to get links working on jsfiddle
 	// $locationProvider.html5Mode(true);
@@ -38,20 +34,22 @@ extranet.run(['$rootScope', '$state', 'AUTHENTICATION_EVENTS', 'AuthenticationSe
 						if (AuthenticationService.isAuthenticated()) {
 							// user is not allowed
 							$rootScope.$broadcast(AUTHENTICATION_EVENTS.notAuthorized);
+							console.error('notAuthorized');
 						} else {
 							// user is not logged in
 							$rootScope.$broadcast(AUTHENTICATION_EVENTS.notAuthenticated);
+							console.error('notAuthenticated');
 					    }
 					}
 				}
 			});
 		},
 		function(error) {
-
+			console.error(error);
 		}
 	);
 
 	$rootScope.$on(AUTHENTICATION_EVENTS.loginSuccess, function (event, next) {
 		$state.go('users');
     });
-}])
+}]);
