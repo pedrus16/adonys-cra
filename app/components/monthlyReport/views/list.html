@@ -15,8 +15,16 @@
 				</tr>
 				<tr ng-repeat="report in reports track by report.id">
 					<td>{{ report.id }}</td>
-					<td>{{ report.clientId }}</td>
-					<td>{{ report.userId }}</td>
+					<td>
+						<a ui-sref="users-detail({ userId: report.client.id })">
+							{{ report.client.firstname }} {{ report.client.lastname }}
+						</a>
+					</td>
+					<td>
+						<a ui-sref="users-detail({ userId: report.userId })">
+							{{ report.client.firstname }} {{ report.client.lastname }}
+						</a>
+					</td>
 					<td><a href>Voir</a></td>
 				</tr>
 			</table>

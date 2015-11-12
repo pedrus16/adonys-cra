@@ -7,7 +7,8 @@
     "angular-ui-bootstrap": "^0.14.3",
     "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.5",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "ng-infinite-scroll": "^1.2.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.7",

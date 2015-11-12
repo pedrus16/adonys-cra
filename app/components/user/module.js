@@ -1,4 +1,6 @@
-var module = angular.module('extranetUserModule', []);
+var module = angular.module('extranetUserModule', [
+	'infinite-scroll'
+]);
 
 module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROLES) {
 
