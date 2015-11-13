@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         },
       },
       css: {
-        files: ['assets/**/*.scss'],
+        files: ['assets/sass/**/*.scss'],
         tasks: ['sass'],
         options: {
           livereload: true,
