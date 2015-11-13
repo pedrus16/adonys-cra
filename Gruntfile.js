@@ -18,10 +18,32 @@ module.exports = function(grunt) {
           spawn: false,
         },
       },
-    }
+      css: {
+        files: ['assets/**/*.scss'],
+        tasks: ['sass'],
+        options: {
+          livereload: true,
+        },
+      },
+    },
+    sass: {                              // Task
+      dist: {                            // Target
+        options: {                       // Target options
+          style: 'expanded'
+        },
+        files: [{
+          expand: true,
+          cwd: 'assets/sass/',
+          src: ['*.scss'],
+          dest: 'assets/css',
+          ext: '.css'
+        }]
+      },
+    },
   });
   // Each plugin must be loaded following this pattern
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-sass');
  
 };
