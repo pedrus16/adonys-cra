@@ -13,38 +13,50 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			authorizedRoles: [USER_ROLES.all]
 		}
 	})
-	.state('logout', {
+	.state('main', {
+		abstract: true,
+		url: '',
+		controller: 'ApplicationController',
+		templateUrl: 'app/shared/views/main.html',
+		data: {
+			authorizedRoles: [USER_ROLES.all]
+		},
+		resolve: {
+            isAuthenticated: function (AuthenticationResolver) {
+                return AuthenticationResolver.resolve();
+            }
+        }
+	})
+	.state('main.logout', {
 		url: '/logout',
 		controller: 'LogoutController',
 		data: {
 			authorizedRoles: [USER_ROLES.all]
 		}
 	})
-	.state('users', {
+	.state('main.users', {
 		url:'/users',
-		templateUrl: 'app/components/user/views/list.html',
-		controller: 'UsersController',
+		views: {
+			'content': {
+				controller: 'UsersController',
+				templateUrl: 'app/components/user/views/list.html'
+			}
+		},
 		data: {
 			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
-		},
-		resolve: {
-            isAuthenticated: function (AuthenticationResolver) {
-                return AuthenticationResolver.resolve();
-            }
-        }
+		}
 	})
-	.state('users-detail', {
+	.state('main.users-detail', {
 		url:'/users/:userId',
-		templateUrl: 'app/components/user/views/user.detail.html',
-		controller: 'UserDetailController',
+		views: {
+			'content': {
+				templateUrl: 'app/components/user/views/user.detail.html',
+				controller: 'UserDetailController'
+			}
+		},
 		data: {
 			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
-		},
-		resolve: {
-            isAuthenticated: function (AuthenticationResolver) {
-                return AuthenticationResolver.resolve();
-            }
-        }
+		}
 	});
 
 }]);

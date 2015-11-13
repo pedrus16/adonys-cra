@@ -30,7 +30,7 @@ extranet.run(['$rootScope', '$state', 'AUTHENTICATION_EVENTS', 'AuthenticationSe
 				if (next.data.hasOwnProperty('authorizedRoles'))
 				{
 					var authorizedRoles = next.data.authorizedRoles;
-					if (!AuthenticationService.isAuthorized(authorizedRoles) && authorizedRoles.indexOf(USER_ROLES.all) == -1) {
+					if (!AuthenticationService.isAuthorized(authorizedRoles) && authorizedRoles.indexOf(USER_ROLES.all) === -1) {
 						event.preventDefault();
 						if (AuthenticationService.isAuthenticated()) {
 							// user is not allowed
@@ -51,6 +51,6 @@ extranet.run(['$rootScope', '$state', 'AUTHENTICATION_EVENTS', 'AuthenticationSe
 	);
 
 	$rootScope.$on(AUTHENTICATION_EVENTS.loginSuccess, function (event, next) {
-		$state.go('users');
+		$state.go('main.users');
     });
 }]);

@@ -57,31 +57,31 @@ span.caret.up {
 .animate-repeat.ng-enter, 
 .animate-repeat.ng-leave
 { 
-  -webkit-transition: 100ms ease all;
-  -moz-transition: 100ms ease  all;
-  -ms-transition: 100ms ease all;
-  -o-transition: 100ms ease  all;
-  transition: 100ms ease all;
+  -webkit-transition: 200ms ease all;
+  -moz-transition: 200ms ease  all;
+  -ms-transition: 200ms ease all;
+  -o-transition: 200ms ease  all;
+  transition: 200ms ease all;
 } 
- 
+
 .animate-repeat.ng-enter.ng-enter-active, 
 .animate-repeat.ng-leave {
   opacity: 1;
-  -webkit-transform: translateX(0);
+  /*-webkit-transform: translateX(0);
   -moz-transform: translateX(0);
   -ms-transform: translateX(0);
   -o-transform: translateX(0);
-  transform: translateX(0);
+  transform: translateX(0);*/
 }
  
 .animate-repeat.ng-leave.ng-leave-active,
 .animate-repeat.ng-enter {
   opacity: 0;
-  -webkit-transform: translateX(100px);
+/*  -webkit-transform: translateX(100px);
   -moz-transform: translateX(100px);
   -ms-transform: translateX(100px);
   -o-transform: translateX(100px);
-  transform: translateX(100px);
+  transform: translateX(100px);*/
 }
 
 .animate-repeat.ng-leave-stagger {

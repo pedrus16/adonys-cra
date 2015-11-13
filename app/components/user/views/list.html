@@ -1,67 +1,54 @@
-<div class="container-fluid">
-
-	<div class="row">
-		
-		<ng-include src="'app/shared/views/sidebar.html'"></ng-include>
-
-		<div class="main col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" ng-controller="UsersController">
-
-			<form class="form-inline" ng-submit="users.search(filter.search)">
-				<div class="form-group">
-					<label class="sr-only" for="searchUser">Rechercher un utilisateur</label>
-					<input type="search" class="form-control" id="searchUser" placeholder="Rechercher" ng-model="filter.search">
-				</div>
-				<button type="submit" class="btn btn-default">Rechercher</button>
-				<div>
-					<div class="checkbox" ng-repeat="role in roles track by role.name">
-						<label>
-							<input type="checkbox" ng-change="users.filter()" ng-model="users.filters.roles[role.name]"> {{ role.label }}
-						</label>
-					</div>
-				</div>
-			</form>
-
-			<table class="table table-responsive" 
-				infinite-scroll="users.nextPage()" 
-				infinite-scroll-distance='1'>
-				<tr>
-					<th>
-						<a href ng-click="toggleSort('id')">
-							Id
-							<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'id'}"></span>
-						</a>
-					</th>
-					<th>
-						<a href ng-click="toggleSort('firstname')">
-							Nom
-							<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'firstname'}"></span>
-						</a>
-					</th>
-					<th>
-						<a href ng-click="toggleSort('lastname')">
-							Prénom 
-							<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'lastname'}"></span>
-						</a>
-					</th>
-					<th>
-						<a href ng-click="toggleSort('email')">
-							Email
-							<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'email'}"></span>
-						</a>
-					</th>
-					<th>Actions</th>
-				</tr>
-				<tr ng-repeat="user in users.items track by user.id" class="animate-repeat">
-					<td>{{ user.id }}</td>
-					<td>{{ user.firstname }}</td>
-					<td>{{ user.lastname }}</td>
-					<td>{{ user.email }}</td>
-					<td><a ui-sref="users-detail({ userId: user.id })">Voir</a></td>
-				</tr>
-			</table>
-
-		</div>
-
+<form class="form-inline" ng-submit="users.search(filter.search)">
+	<div class="form-group">
+		<label class="sr-only" for="searchUser">Rechercher un utilisateur</label>
+		<input type="search" class="form-control" id="searchUser" placeholder="Rechercher" ng-model="filter.search">
 	</div>
+	<button type="submit" class="btn btn-default">Rechercher</button>
+	<div>
+		<div class="checkbox" ng-repeat="role in roles track by role.name">
+			<label>
+				<input type="checkbox" ng-change="users.filter()" ng-model="users.filters.roles[role.name]"> {{ role.label }}
+			</label>
+		</div>
+	</div>
+</form>
 
-</div>
+<table class="table table-responsive" 
+	infinite-scroll="users.nextPage()" 
+	infinite-scroll-distance='1'>
+	<tr>
+		<th>
+			<a href ng-click="toggleSort('id')">
+				Id
+				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'id'}"></span>
+			</a>
+		</th>
+		<th>
+			<a href ng-click="toggleSort('firstname')">
+				Nom
+				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'firstname'}"></span>
+			</a>
+		</th>
+		<th>
+			<a href ng-click="toggleSort('lastname')">
+				Prénom 
+				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'lastname'}"></span>
+			</a>
+		</th>
+		<th>
+			<a href ng-click="toggleSort('email')">
+				Email
+				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'email'}"></span>
+			</a>
+		</th>
+		<th>Actions</th>
+	</tr>
+	 <!-- track by user.id -->
+	<tr ng-repeat="user in users.items" class="animate-repeat">
+		<td>{{ user.id }}</td>
+		<td>{{ user.firstname }}</td>
+		<td>{{ user.lastname }}</td>
+		<td>{{ user.email }}</td>
+		<td><a ui-sref="main.users-detail({ userId: user.id })">Voir</a></td>
+	</tr>
+</table>
