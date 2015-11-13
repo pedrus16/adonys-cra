@@ -60,6 +60,18 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 		data: {
 			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
 		}
+	})
+	.state('main.user-add', {
+		url:'/user/add',
+		views: {
+			'content': {
+				templateUrl: 'app/components/user/views/user.edit.html',
+				controller: 'UserAddController'
+			}
+		},
+		data: {
+			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+		}
 	});
 
 }]);

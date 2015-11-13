@@ -1,0 +1,42 @@
+<h2>Créer un utilisateur</h2>
+<form class="form-horizontal" ng-submit="users.add(user)">
+
+	<label class="radio-inline">
+		<input type="radio" name="role" id="roleAdministrator" value="administrator" ng-model="user.role"> Administrateur
+	</label>
+	<label class="radio-inline">
+		<input type="radio" name="role" id="roleResponsable" value="responsable" ng-model="user.role"> Responsable
+	</label>
+	<label class="radio-inline">
+		<input type="radio" name="role" id="roleCollaborator" value="collaborator" ng-model="user.role"> Collaborateur
+	</label>
+	<label class="radio-inline">
+		<input type="radio" name="role" id="roleClient" value="client" ng-model="user.role"> Client
+	</label>
+
+	<div class="form-group">
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="inputEmail3" placeholder="Prénom" ng-model="user.firstname">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="inputEmail3" placeholder="Nom" ng-model="user.lastname">
+		</div>
+	</div>
+	<div class="form-group" ng-if="user.role === 'client'">
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="inputEmail3" placeholder="Société" ng-model="user.company">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-10">
+			<input type="email" class="form-control" id="inputEmail3" placeholder="Email" ng-model="user.email">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-10">
+			<button type="submit" class="btn btn-primary">Créer l'utilisateur</button>
+		</div>
+	</div>
+</form>

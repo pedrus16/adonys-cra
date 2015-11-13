@@ -78,6 +78,20 @@ module.factory('UserService', ['$resource', 'API', function ($resource, API) {
 
 	};
 
+	User.add = function(user) {
+
+		var resource = $resource(API.baseUrl + '/users');
+		// TODO
+		var user = resource.save({}, {
+			id: '101',
+			firstname: 'pierre',
+			lastname: 'nole',
+			email: 'pierre.nole@gmail.com',
+			reports: []
+		}, function() {});
+
+	};
+
 	return User;
 
 }]);
