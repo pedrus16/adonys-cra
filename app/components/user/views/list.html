@@ -16,13 +16,33 @@
 
 			<table class="table table-striped table-responsive" 
 				infinite-scroll="users.nextPage()" 
-				infinite-scroll-disabled='users.busy || users.end' 
+				
 				infinite-scroll-distance='1'>
 				<tr>
-					<th>Id</th>
-					<th>Nom</th>
-					<th>Prénom</th>
-					<th>Email</th>
+					<th>
+						<a href ng-click="toggleSort('id')">
+							Id
+							<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'id'}"></span>
+						</a>
+					</th>
+					<th>
+						<a href ng-click="toggleSort('firstname')">
+							Nom
+							<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'firstname'}"></span>
+						</a>
+					</th>
+					<th>
+						<a href ng-click="toggleSort('lastname')">
+							Prénom 
+							<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'lastname'}"></span>
+						</a>
+					</th>
+					<th>
+						<a href ng-click="toggleSort('email')">
+							Email
+							<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'email'}"></span>
+						</a>
+					</th>
 					<th>Actions</th>
 				</tr>
 				<tr ng-repeat="user in users.items track by user.id">

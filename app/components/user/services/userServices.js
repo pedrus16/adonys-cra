@@ -15,29 +15,39 @@ module.factory('UserService', ['$resource', 'API', function ($resource, API) {
 	User.end = false;
 	User.pageSize = 10;
 	User.query = '';
+	User.sortBy = '';
+	User.order = '';
 
-	User.search = function(query) {
-		User.query = query;
-		console.log('SEARCH', User.query);
+	User.sort = function() {
 		page = 1;
 		this.end = false;
 		User.items = [];
 		this.nextPage();
-	}
+	};
+
+	User.search = function(query) {
+		if (!query) return;
+		page = 1;
+		this.end = false;
+		User.items = [];
+		User.query = query;
+		this.nextPage();
+	};
 
 	User.nextPage = function() {
+		if (this.busy || this.end) return;
 		var self = this;
 		var parameters = {};
 
-		if (self.busy || self.end) {
-			return;
-		}
 		self.busy = true;
-
 		parameters.page = page;
 		parameters.limit = self.pageSize;
 		if (self.query) {
 			parameters.search = self.query;
+		}
+		if (self.sortBy) {
+			parameters.sortBy = self.sortBy;
+			parameters.order = self.order;
 		}
 		var UsersResource = $resource(API.baseUrl + '/users', parameters);
 		var users = UsersResource.query(function() {
