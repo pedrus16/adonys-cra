@@ -13,7 +13,7 @@ extranet.controller('ApplicationController', ['$scope', function ($scope) {
 
 extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', function($stateProvider, $urlRouterProvider, $resourceProvider) {
 	
-	$urlRouterProvider.otherwise('/login');
+	$urlRouterProvider.otherwise('/users');
 	$resourceProvider.defaults.stripTrailingSlashes = false;
 
 	// configure html5 to get links working on jsfiddle

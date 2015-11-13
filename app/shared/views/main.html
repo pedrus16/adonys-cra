@@ -6,7 +6,7 @@
 			<ul class="nav nav-sidebar">
 				<li><a ui-sref="main.users">Utilisateurs</a></li>
 				<li><a ui-sref="main.monthly-report">Comptes Rendus d'Activité</a></li>
-				<li><a ui-sref="main.logout">Déconnexion</a></li>
+				<li><a ui-sref="logout">Déconnexion</a></li>
 			</ul>
 		</div>
 
@@ -28,14 +28,13 @@
 					<ul class="nav navbar-nav">
 						<li><a ui-sref="main.users">Utilisateurs</a></li>
 						<li><a ui-sref="main.monthly-report">Comptes Rendus d'Activité</a></li>
-						<li><a ui-sref="main.logout">Déconnexion</a></li>
+						<li><a ui-sref="logout">Déconnexion</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
 
-		<div class="main col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" ui-view="content">
-		</div>
+		<div ui-view="content" class="main col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2"></div>
 
 	</div>
 

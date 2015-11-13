@@ -13,6 +13,16 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			authorizedRoles: [USER_ROLES.all]
 		}
 	})
+	.state('logout', {
+		url: '/logout',
+		controller: function(AuthenticationService, $state) {
+			AuthenticationService.logout();
+			$state.go('login');
+		},
+		data: {
+			authorizedRoles: [USER_ROLES.all]
+		}
+	})
 	.state('main', {
 		abstract: true,
 		url: '',
@@ -26,13 +36,6 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
                 return AuthenticationResolver.resolve();
             }
         }
-	})
-	.state('main.logout', {
-		url: '/logout',
-		controller: 'LogoutController',
-		data: {
-			authorizedRoles: [USER_ROLES.all]
-		}
 	})
 	.state('main.users', {
 		url:'/users',

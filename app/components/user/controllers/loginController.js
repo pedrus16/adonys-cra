@@ -18,8 +18,3 @@ module.controller('LoginController', ['$scope', '$rootScope', 'AUTHENTICATION_EV
 	};
 
 }]);
-
-module.controller('LogoutController', ['$scope', '$state', 'AuthenticationService', function($scope, $state, AuthenticationService) {
-	AuthenticationService.logout();
-	$state.go('login');
-}]);
