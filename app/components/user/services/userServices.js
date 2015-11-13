@@ -17,8 +17,16 @@ module.factory('UserService', ['$resource', 'API', function ($resource, API) {
 	User.query = '';
 	User.sortBy = '';
 	User.order = '';
+	User.filter = {};
 
 	User.sort = function() {
+		page = 1;
+		this.end = false;
+		User.items = [];
+		this.nextPage();
+	};
+
+	User.filter = function() {
 		page = 1;
 		this.end = false;
 		User.items = [];

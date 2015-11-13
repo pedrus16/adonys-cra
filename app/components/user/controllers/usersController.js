@@ -1,8 +1,9 @@
 var module = angular.module('extranetUserModule');
 
-module.controller('UsersController', ['$scope', 'UserService', function($scope, UserService) {
+module.controller('UsersController', ['$scope', 'UserService', 'RoleService', function($scope, UserService, RoleService) {
 
 	$scope.users = UserService;
+	$scope.roles = RoleService.getRoles();
 	$scope.filter = {
 		search: ''
 	};

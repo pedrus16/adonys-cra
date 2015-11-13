@@ -12,11 +12,17 @@
 					<input type="search" class="form-control" id="searchUser" placeholder="Rechercher" ng-model="filter.search">
 				</div>
 				<button type="submit" class="btn btn-default">Rechercher</button>
+				<div>
+					<div class="checkbox" ng-repeat="role in roles track by role.name">
+						<label>
+							<input type="checkbox" ng-change="users.filter()" ng-model="users.filters.roles[role.name]"> {{ role.label }}
+						</label>
+					</div>
+				</div>
 			</form>
 
-			<table class="table table-striped table-responsive" 
+			<table class="table table-responsive" 
 				infinite-scroll="users.nextPage()" 
-				
 				infinite-scroll-distance='1'>
 				<tr>
 					<th>
@@ -45,7 +51,7 @@
 					</th>
 					<th>Actions</th>
 				</tr>
-				<tr ng-repeat="user in users.items track by user.id">
+				<tr ng-repeat="user in users.items track by user.id" class="animate-repeat">
 					<td>{{ user.id }}</td>
 					<td>{{ user.firstname }}</td>
 					<td>{{ user.lastname }}</td>

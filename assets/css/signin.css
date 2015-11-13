@@ -53,3 +53,47 @@ span.caret.up {
   -moz-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
 }
+
+.animate-repeat.ng-enter, 
+.animate-repeat.ng-leave
+{ 
+  -webkit-transition: 100ms ease all;
+  -moz-transition: 100ms ease  all;
+  -ms-transition: 100ms ease all;
+  -o-transition: 100ms ease  all;
+  transition: 100ms ease all;
+} 
+ 
+.animate-repeat.ng-enter.ng-enter-active, 
+.animate-repeat.ng-leave {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+}
+ 
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-enter {
+  opacity: 0;
+  -webkit-transform: translateX(100px);
+  -moz-transform: translateX(100px);
+  -ms-transform: translateX(100px);
+  -o-transform: translateX(100px);
+  transform: translateX(100px);
+}
+
+.animate-repeat.ng-leave-stagger {
+    -webkit-transition-delay: 5ms;
+    transition-delay: 5ms;
+    -webkit-transition-duration: 0s;
+    transition-duration: 0s;
+}
+
+.animate-repeat.ng-enter-stagger {
+    -webkit-transition-delay: 5ms;
+    transition-delay: 5ms;
+    -webkit-transition-duration: 0s;
+    transition-duration: 0s;
+}

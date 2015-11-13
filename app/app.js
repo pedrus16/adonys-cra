@@ -1,5 +1,6 @@
 var extranet = angular.module('extranetApp', [
 	'ngResource',
+	'ngAnimate',
 	'ui.router',
 	'ui.bootstrap',
 	'extranetUserModule',
