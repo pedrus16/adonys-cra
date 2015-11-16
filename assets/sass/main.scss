@@ -1,11 +1,15 @@
 @import "partials/signin";
 
+.root-container {
+  padding-top: 4px;
+}
+
 .sidebar {
   position: fixed;
-  top: 0;
+  top: 4px;
   bottom: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 100;
   display: block;
   padding: 0;
   overflow-x: hidden;

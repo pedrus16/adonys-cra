@@ -3,6 +3,8 @@ var extranet = angular.module('extranetApp', [
 	'ngAnimate',
 	'ui.router',
 	'ui.bootstrap',
+	'angular-loading-bar',
+
 	'extranetUserModule',
 	'extranetMonthlyReportModule'
 ]);
@@ -17,11 +19,12 @@ extranet.controller('ErrorController', ['$scope', '$uibModalInstance', 'resolved
 	$scope.error = resolvedError;
 }]);
 
-extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', 'USER_ROLES',
-	function($stateProvider, $urlRouterProvider, $resourceProvider, USER_ROLES) {
+extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', 'USER_ROLES', 'cfpLoadingBarProvider',
+	function($stateProvider, $urlRouterProvider, $resourceProvider, USER_ROLES, cfpLoadingBarProvider) {
 	
 	$urlRouterProvider.otherwise('/users');
 	$resourceProvider.defaults.stripTrailingSlashes = false;
+	cfpLoadingBarProvider.includeSpinner = false;
 
 	$stateProvider
 	.state('main', {
