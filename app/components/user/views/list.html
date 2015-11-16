@@ -9,7 +9,7 @@
 	</div>
 	<button type="submit" class="btn btn-default">Rechercher</button>
 	<div>
-		<div class="checkbox" ng-repeat="role in roles track by role.name">
+		<div class="checkbox" ng-repeat="role in roles.items track by role.name">
 			<label>
 				<input type="checkbox" ng-change="users.filter()" ng-model="users.filters.roles[role.name]"> {{ role.label }}
 			</label>
@@ -45,6 +45,18 @@
 				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'email'}"></span>
 			</a>
 		</th>
+		<th>
+			<a href ng-click="toggleSort('company')">
+				Société
+				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'company'}"></span>
+			</a>
+		</th>
+		<th>
+			<a href ng-click="toggleSort('role')">
+				Role
+				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'role'}"></span>
+			</a>
+		</th>
 		<th>Actions</th>
 	</tr>
 	 <!-- track by user.id -->
@@ -53,6 +65,20 @@
 		<td>{{ user.firstname }}</td>
 		<td>{{ user.lastname }}</td>
 		<td>{{ user.email }}</td>
-		<td><a ui-sref="main.users-detail({ userId: user.id })">Voir</a></td>
+		<td>{{ user.company }}</td>
+		<td>{{ user.role }}</td>
+		<td>
+			<ul class="list-inline">
+				<li>
+					<a ui-sref="main.user-detail({ userId: user.id })">Voir</a>
+				</li>
+				<li>
+					<a ui-sref="main.user-edit({ userId: user.id })">Modifier</a>
+				</li>
+				<li>
+					<a ui-sref="main.user-delete({ userId: user.id })">Supprimer</a>
+				</li>
+			</ul>
+		</td>
 	</tr>
 </table>

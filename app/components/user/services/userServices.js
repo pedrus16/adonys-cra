@@ -4,7 +4,8 @@ module.constant('API', {
 	baseUrl: 'http://5641ef34062a801100ca82b4.mockapi.io/api'
 });
 
-module.factory('UserService', ['$resource', 'API', function ($resource, API) {
+module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API', 
+	function ($rootScope, $resource, $state, $q, API) {
 
 	var UserResource = $resource(API.baseUrl + '/users/:userId');
 	var page = 1;
@@ -72,26 +73,61 @@ module.factory('UserService', ['$resource', 'API', function ($resource, API) {
 	};
 	
 	User.getUser = function(id) {
+		var deferred = $q.defer();
 
-		var user = UserResource.get({userId: id}, function() {});
-		return user;
-
-	};
-
-	User.add = function(user) {
-
-		var resource = $resource(API.baseUrl + '/users');
-		// TODO
-		var user = resource.save({}, {
-			id: '101',
-			firstname: 'pierre',
-			lastname: 'nole',
-			email: 'pierre.nole@gmail.com',
-			reports: []
-		}, function() {});
+		var user = UserResource.get({userId: id}, 
+			function() {
+				deferred.resolve(user);
+			},
+			function(error) {
+				deferred.reject(error);
+			}
+		);
+		return deferred.promise;
 
 	};
 
-	return User;
+	User.create = function(user) {
+		var self = this;
+		var newUser = UserResource.save({}, user, function() {
+			self.items.unshift(newUser);
+		});
+
+	};
+
+	User.update = function(user, callback) {
+		var self = this;
+		var UserUpdateResource = $resource(API.baseUrl + '/users/:userId', null,
+				{
+					'update': { method:'PUT' }
+				}
+			);
+		var editedUser = UserUpdateResource.update({ userId: user.id }, user, function() {
+			for (var i = 0; i < self.items.length; i++) {
+				if (self.items[i].id === editedUser.id) {
+					self.items[i] = editedUser;
+					break;
+				}
+			}
+			if (callback) { callback(); }
+		});
+	};
+
+	User.delete = function(id) {
+		var self = this;
+
+		var deletedUser = UserResource.delete({ userId: id }, function() {
+			// Updates the user list
+			for (var i = 0; i < self.items.length; i++) {
+				if (self.items[i].id === deletedUser.id) {
+					self.items.splice(i, 1);
+					break;
+				}
+			}
+		});
+
+	};
+ 
+ 	return User;
 
 }]);

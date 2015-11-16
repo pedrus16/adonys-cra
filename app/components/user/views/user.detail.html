@@ -1,1 +1,5 @@
 <h1>{{ user.firstname }} {{ user.lastname }} <small>{{ user.email }}</small></h1>
+<div class="center-block">
+	<button type="button" class="btn btn-primary" ui-sref="main.user-delete({ userId: user.id })">Supprimer l'utilisateur</button>
+	<button type="button" class="btn btn-primary" ui-sref="main.user-edit({ userId: user.id })">Modifier l'utilisateur</button>
+</div>

@@ -3,13 +3,13 @@ var module = angular.module('extranetUserModule');
 module.controller('UsersController', ['$scope', 'UserService', 'RoleService', function($scope, UserService, RoleService) {
 
 	$scope.users = UserService;
-	$scope.roles = RoleService.getRoles();
+	$scope.roles = RoleService;
 	$scope.filter = {
 		search: ''
 	};
 	$scope.users.pageSize = 50;
 	$scope.users.sortBy = 'id';
-	$scope.users.order = 'asc';
+	$scope.users.order = 'desc';
 
 	$scope.toggleSort = function(column) {
 		if ($scope.users.sortBy === column) {
@@ -21,5 +21,7 @@ module.controller('UsersController', ['$scope', 'UserService', 'RoleService', fu
 		}
 		$scope.users.sort();
 	};
+
+	$scope.roles.getRoles();
 
 }]);

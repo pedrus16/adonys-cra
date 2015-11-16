@@ -23,20 +23,6 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			authorizedRoles: [USER_ROLES.all]
 		}
 	})
-	.state('main', {
-		abstract: true,
-		url: '',
-		controller: 'ApplicationController',
-		templateUrl: 'app/shared/views/main.html',
-		data: {
-			authorizedRoles: [USER_ROLES.all]
-		},
-		resolve: {
-            isAuthenticated: function (AuthenticationResolver) {
-                return AuthenticationResolver.resolve();
-            }
-        }
-	})
 	.state('main.users', {
 		url:'/users',
 		views: {
@@ -49,7 +35,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
 		}
 	})
-	.state('main.users-detail', {
+	.state('main.user-detail', {
 		url:'/users/:userId',
 		views: {
 			'content': {
@@ -59,6 +45,11 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 		},
 		data: {
 			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+		},
+		resolve: {
+			resolvedUser: ['$stateParams', 'UserService', function($stateParams, UserService) {
+				return UserService.getUser($stateParams.userId);
+			}]
 		}
 	})
 	.state('main.user-add', {
@@ -71,6 +62,34 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 		},
 		data: {
 			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+		}
+	})
+	.state('main.user-edit', {
+		url:'/users/:userId/edit',
+		views: {
+			'content': {
+				templateUrl: 'app/components/user/views/user.edit.html',
+				controller: 'UserEditController'
+			}
+		},
+		data: {
+			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+		},
+		resolve: {
+			resolvedUser: ['$stateParams', 'UserService', function($stateParams, UserService) {
+				return UserService.getUser($stateParams.userId);
+			}]
+		}
+	})
+	.state('main.user-delete', {
+		url:'/users/delete/:userId',
+		views: {
+			'content': {
+				controller: 'UserDeleteController'
+			}
+		},
+		data: {
+			authorizedRoles: [USER_ROLES.admin]
 		}
 	});
 
