@@ -1,67 +1,9 @@
 @import "partials/signin";
 @import "partials/filters";
-
-.root-container {
-  // padding-top: 4px;
-}
+@import "partials/sidebar";
+@import "partials/icon";
+@import "partials/animation";
 
 .main {
   margin-top: 51px;
-}
-
-.sidebar {
-  position: fixed;
-  top: 51px;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  display: block;
-  padding: 20px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: #f5f5f5;
-  border-right: 1px solid #eee;
-}
-
-span.caret.up {
-  transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-}
-
-.animate-repeat {
-  &.ng-enter, 
-  &.ng-leave
-  { 
-    -webkit-transition: 200ms ease all;
-    -moz-transition: 200ms ease  all;
-    -ms-transition: 200ms ease all;
-    -o-transition: 200ms ease  all;
-    transition: 200ms ease all;
-  } 
-
-  &.ng-enter.ng-enter-active, 
-  &.ng-leave {
-    opacity: 1;
-  }
-   
-  &.ng-leave.ng-leave-active,
-  &.ng-enter {
-    opacity: 0;
-  }
-
-  &.ng-leave-stagger {
-      -webkit-transition-delay: 5ms;
-      transition-delay: 5ms;
-      -webkit-transition-duration: 0s;
-      transition-duration: 0s;
-  }
-
-  &.ng-enter-stagger {
-      -webkit-transition-delay: 5ms;
-      transition-delay: 5ms;
-      -webkit-transition-duration: 0s;
-      transition-duration: 0s;
-  }
 }

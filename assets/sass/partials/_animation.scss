@@ -1,0 +1,35 @@
+.animate-repeat {
+  &.ng-enter, 
+  &.ng-leave
+  { 
+    -webkit-transition: 200ms ease all;
+    -moz-transition: 200ms ease  all;
+    -ms-transition: 200ms ease all;
+    -o-transition: 200ms ease  all;
+    transition: 200ms ease all;
+  } 
+
+  &.ng-enter.ng-enter-active, 
+  &.ng-leave {
+    opacity: 1;
+  }
+   
+  &.ng-leave.ng-leave-active,
+  &.ng-enter {
+    opacity: 0;
+  }
+
+  &.ng-leave-stagger {
+      -webkit-transition-delay: 5ms;
+      transition-delay: 5ms;
+      -webkit-transition-duration: 0s;
+      transition-duration: 0s;
+  }
+
+  &.ng-enter-stagger {
+      -webkit-transition-delay: 5ms;
+      transition-delay: 5ms;
+      -webkit-transition-duration: 0s;
+      transition-duration: 0s;
+  }
+}

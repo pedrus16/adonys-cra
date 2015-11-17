@@ -6,11 +6,12 @@
 </h2>
 
 <div class="row">
-	<form class="form-inline col-md-4 filter-block" ng-submit="users.search(filter.search)">
+	<form name="form" class="form-inline col-md-4 filter-block" ng-submit="search(filter.search)" novalidate>
 		<div class="input-group">
-			<input type="search" class="form-control" id="searchUser" placeholder="Rechercher" ng-model="filter.search">
+			<input type="search" name="search" class="form-control" id="searchUser" placeholder="Rechercher" ng-model="filter.search" required>
 				<span class="input-group-btn">
-				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				<button type="button" class="btn btn-default" ng-show="!!searching" ng-click="cancelSearch()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+				<button type="submit" class="btn btn-default" ng-disabled="form.search.$invalid" ng-show="!searching"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 			</span>
 		</div><!-- /input-group -->
 		<label class="sr-only" for="searchUser">Rechercher un utilisateur</label>
@@ -23,7 +24,6 @@
 				{{ role.label }}
 			</label>
 		</div>
-		
 	</div>
 </div>
 

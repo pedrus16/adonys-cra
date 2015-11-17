@@ -33,7 +33,6 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 	};
 
 	User.search = function(query) {
-		if (!query) return;
 		page = 1;
 		this.end = false;
 		User.query = query;
