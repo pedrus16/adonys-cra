@@ -9,6 +9,15 @@ var extranet = angular.module('extranetApp', [
 	'extranetMonthlyReportModule'
 ]);
 
+extranet.constant('API', {
+	baseUrl: 'http://5641ef34062a801100ca82b4.mockapi.io/api'
+});
+
+extranet.constant('ERRORS', {
+	userNotFound: 'user-not-found',
+	reportNotFound: 'report-not-found',
+});
+
 extranet.controller('ApplicationController', ['$scope', function ($scope) {
 	// Useless for now
 }]);
@@ -22,10 +31,6 @@ extranet.controller('ErrorController', ['$scope', '$uibModalInstance', 'resolved
 		$uibModalInstance.dismiss();
 	};
 }]);
-
-extranet.constant('ERRORS', {
-	userNotFound: 'user-not-found',
-});
 
 extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', 'USER_ROLES', 'cfpLoadingBarProvider',
 	function($stateProvider, $urlRouterProvider, $resourceProvider, USER_ROLES, cfpLoadingBarProvider) {

@@ -1,5 +1,5 @@
 <h2 ng-if="title">{{ title }}</h2>
-<form class="form-horizontal" ng-submit="submit(user)">
+<form class="form-horizontal" ng-submit="submit(user)" name="form" novalidate>
 
 	<h3>Rôle</h3>
 	<div class="btn-group">
@@ -9,29 +9,39 @@
 	</div>
 
 	<h3>Informations</h3>
-	<div class="form-group">
+	<div class="form-group has-feedback" ng-class="{ 'has-success': (form.firstname.$valid && form.firstname.$dirty), 'has-error': form.firstname.$invalid }">
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="inputEmail3" placeholder="Prénom" ng-model="user.firstname">
+			<label class="control-label sr-only" for="firstname">Prénom</label>
+			<input type="text" class="form-control" placeholder="Prénom" name="firstname" ng-model="user.firstname" required>
+			<span class="glyphicon form-control-feedback" aria-hidden="true" ng-class="{ 'glyphicon-ok': (form.firstname.$valid && form.firstname.$dirty), 'glyphicon-remove': form.firstname.$invalid }"></span>
+		</div>
+	</div>
+	<div class="form-group has-feedback" ng-class="{ 'has-success': (form.lastname.$valid && form.lastname.$dirty), 'has-error': form.lastname.$invalid }">
+		<div class="col-sm-10">
+			<label class="control-label sr-only" for="lastname">Nom</label>
+			<input type="text" class="form-control" placeholder="Nom" name="lastname" ng-model="user.lastname" required>
+			<span class="glyphicon form-control-feedback" aria-hidden="true" ng-class="{ 'glyphicon-ok': (form.lastname.$valid && form.lastname.$dirty), 'glyphicon-remove': form.lastname.$invalid }"></span>
+		</div>
+	</div>
+	<div class="form-group has-feedback" ng-class="{ 'has-success': (form.company.$valid && form.company.$dirty), 'has-error': form.company.$invalid }" ng-if="user.role === 'client'">
+		<div class="col-sm-10">
+			<label class="control-label sr-only" for="company">Société</label>
+			<input type="text" class="form-control" placeholder="Société" name="company" ng-model="user.company" required>
+			<span class="glyphicon form-control-feedback" aria-hidden="true" ng-class="{ 'glyphicon-ok': (form.company.$valid && form.company.$dirty), 'glyphicon-remove': form.company.$invalid }"></span>
+		</div>
+	</div>
+	<div class="form-group has-feedback" ng-class="{ 'has-success': (form.email.$valid && form.email.$dirty), 'has-error': form.email.$invalid }">
+		<div class="col-sm-10">
+			<label class="control-label sr-only" for="email">Email</label>
+			<input type="email" class="form-control" placeholder="Email" name="email" ng-model="user.email" required>
+			<span class="glyphicon form-control-feedback" aria-hidden="true" ng-class="{ 'glyphicon-ok': (form.email.$valid && form.email.$dirty), 'glyphicon-remove': form.email.$invalid }"></span>
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="inputEmail3" placeholder="Nom" ng-model="user.lastname">
-		</div>
-	</div>
-	<div class="form-group" ng-if="user.role === 'client'">
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="inputEmail3" placeholder="Société" ng-model="user.company">
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-10">
-			<input type="email" class="form-control" id="inputEmail3" placeholder="Email" ng-model="user.email">
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-10">
-			<button type="submit" class="btn btn-primary">Enregistrer</button>
+			<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
+				<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Enregistrer
+			</button>
 		</div>
 	</div>
 </form>

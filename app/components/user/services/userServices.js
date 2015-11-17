@@ -1,9 +1,5 @@
 var module = angular.module('extranetUserModule');
 
-module.constant('API', {
-	baseUrl: 'http://5641ef34062a801100ca82b4.mockapi.io/api'
-});
-
 module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API', 'ERRORS', '$log',
 	function ($rootScope, $resource, $state, $q, API, ERRORS, $log) {
 
@@ -54,8 +50,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 			parameters.sortBy = self.sortBy;
 			parameters.order = self.order;
 		}
-		var UsersResource = $resource(API.baseUrl + '/users', parameters);
-		var users = UsersResource.query(function() {
+		var users = $resource(API.baseUrl + '/users', parameters).query(function() {
 			if (reset) self.items = []; // Empty the list
 			for (var i = 0; i < users.length; i++) {
 				self.items.push(users[i]);
