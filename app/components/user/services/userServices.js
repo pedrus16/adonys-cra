@@ -4,8 +4,8 @@ module.constant('API', {
 	baseUrl: 'http://5641ef34062a801100ca82b4.mockapi.io/api'
 });
 
-module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API', 
-	function ($rootScope, $resource, $state, $q, API) {
+module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API', 'ERRORS', '$log',
+	function ($rootScope, $resource, $state, $q, API, ERRORS, $log) {
 
 	var UserResource = $resource(API.baseUrl + '/users/:userId');
 	var page = 1;
@@ -23,27 +23,24 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 	User.sort = function() {
 		page = 1;
 		this.end = false;
-		User.items = [];
-		this.nextPage();
+		this.nextPage(true);
 	};
 
 	User.filter = function() {
 		page = 1;
 		this.end = false;
-		User.items = [];
-		this.nextPage();
+		this.nextPage(true);
 	};
 
 	User.search = function(query) {
 		if (!query) return;
 		page = 1;
 		this.end = false;
-		User.items = [];
 		User.query = query;
-		this.nextPage();
+		this.nextPage(true);
 	};
 
-	User.nextPage = function() {
+	User.nextPage = function(reset) {
 		if (this.busy || this.end) return;
 		var self = this;
 		var parameters = {};
@@ -60,6 +57,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		}
 		var UsersResource = $resource(API.baseUrl + '/users', parameters);
 		var users = UsersResource.query(function() {
+			if (reset) self.items = []; // Empty the list
 			for (var i = 0; i < users.length; i++) {
 				self.items.push(users[i]);
 			}
@@ -80,7 +78,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 				deferred.resolve(user);
 			},
 			function(error) {
-				deferred.reject(error);
+				deferred.reject(ERRORS.userNotFound);
 			}
 		);
 		return deferred.promise;

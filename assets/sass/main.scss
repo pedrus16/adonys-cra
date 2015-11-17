@@ -1,17 +1,22 @@
 @import "partials/signin";
+@import "partials/filters";
 
 .root-container {
-  padding-top: 4px;
+  // padding-top: 4px;
+}
+
+.main {
+  margin-top: 51px;
 }
 
 .sidebar {
   position: fixed;
-  top: 4px;
+  top: 51px;
   bottom: 0;
   left: 0;
-  z-index: 100;
+  z-index: 1000;
   display: block;
-  padding: 0;
+  padding: 20px;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #f5f5f5;
@@ -25,36 +30,38 @@ span.caret.up {
   -webkit-transform: rotate(180deg);
 }
 
-.animate-repeat.ng-enter, 
-.animate-repeat.ng-leave
-{ 
-  -webkit-transition: 200ms ease all;
-  -moz-transition: 200ms ease  all;
-  -ms-transition: 200ms ease all;
-  -o-transition: 200ms ease  all;
-  transition: 200ms ease all;
-} 
+.animate-repeat {
+  &.ng-enter, 
+  &.ng-leave
+  { 
+    -webkit-transition: 200ms ease all;
+    -moz-transition: 200ms ease  all;
+    -ms-transition: 200ms ease all;
+    -o-transition: 200ms ease  all;
+    transition: 200ms ease all;
+  } 
 
-.animate-repeat.ng-enter.ng-enter-active, 
-.animate-repeat.ng-leave {
-  opacity: 1;
-}
- 
-.animate-repeat.ng-leave.ng-leave-active,
-.animate-repeat.ng-enter {
-  opacity: 0;
-}
+  &.ng-enter.ng-enter-active, 
+  &.ng-leave {
+    opacity: 1;
+  }
+   
+  &.ng-leave.ng-leave-active,
+  &.ng-enter {
+    opacity: 0;
+  }
 
-.animate-repeat.ng-leave-stagger {
-    -webkit-transition-delay: 5ms;
-    transition-delay: 5ms;
-    -webkit-transition-duration: 0s;
-    transition-duration: 0s;
-}
+  &.ng-leave-stagger {
+      -webkit-transition-delay: 5ms;
+      transition-delay: 5ms;
+      -webkit-transition-duration: 0s;
+      transition-duration: 0s;
+  }
 
-.animate-repeat.ng-enter-stagger {
-    -webkit-transition-delay: 5ms;
-    transition-delay: 5ms;
-    -webkit-transition-duration: 0s;
-    transition-duration: 0s;
+  &.ng-enter-stagger {
+      -webkit-transition-delay: 5ms;
+      transition-delay: 5ms;
+      -webkit-transition-duration: 0s;
+      transition-duration: 0s;
+  }
 }

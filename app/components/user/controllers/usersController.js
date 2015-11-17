@@ -1,15 +1,19 @@
 var module = angular.module('extranetUserModule');
 
-module.controller('UsersController', ['$scope', 'UserService', 'RoleService', function($scope, UserService, RoleService) {
+module.controller('UsersController', ['$scope', 'UserService', 'RoleService', 'resolvedRoles', 
+	function($scope, UserService, RoleService, resolvedRoles) {
 
 	$scope.users = UserService;
-	$scope.roles = RoleService;
+	$scope.roles = resolvedRoles;
 	$scope.filter = {
-		search: ''
+		search: '',
+		roles: []
 	};
 	$scope.users.pageSize = 50;
 	$scope.users.sortBy = 'id';
 	$scope.users.order = 'desc';
+
+	// console.log('ROLES', resolvedRoles);
 
 	$scope.toggleSort = function(column) {
 		if ($scope.users.sortBy === column) {
@@ -21,7 +25,5 @@ module.controller('UsersController', ['$scope', 'UserService', 'RoleService', fu
 		}
 		$scope.users.sort();
 	};
-
-	$scope.roles.getRoles();
 
 }]);

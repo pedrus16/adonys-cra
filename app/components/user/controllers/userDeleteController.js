@@ -1,8 +1,7 @@
 var module = angular.module('extranetUserModule');
 
-module.controller('UserDeleteController', [
-	'$state', '$stateParams', 'UserService', 
-	function($state, $stateParams, UserService) {
+module.controller('UserDeleteController', ['$stateParams', '$state', 'UserService', 
+	function($stateParams, $state, UserService) {
 
 	UserService.delete($stateParams.userId);
 	$state.go('main.users', {});

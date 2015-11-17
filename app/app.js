@@ -17,7 +17,15 @@ extranet.controller('ErrorController', ['$scope', '$uibModalInstance', 'resolved
 	function ($scope, $uibModalInstance, resolvedError) {
 	// Used by the error modal
 	$scope.error = resolvedError;
+
+	$scope.close = function() {
+		$uibModalInstance.dismiss();
+	};
 }]);
+
+extranet.constant('ERRORS', {
+	userNotFound: 'user-not-found',
+});
 
 extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', 'USER_ROLES', 'cfpLoadingBarProvider',
 	function($stateProvider, $urlRouterProvider, $resourceProvider, USER_ROLES, cfpLoadingBarProvider) {
@@ -38,6 +46,9 @@ extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', 'U
 		resolve: {
             isAuthenticated: ['AuthenticationResolver', function (AuthenticationResolver) {
                 return AuthenticationResolver.resolve();
+            }],
+            resolvedRoles: ['RoleService', function(RoleService) {
+            	return RoleService.getRoles();
             }]
         }
 	});
@@ -47,8 +58,8 @@ extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', 'U
 
 }]);
 
-extranet.run(['$rootScope', '$state', '$uibModal','AUTHENTICATION_EVENTS', 'AuthenticationService', 'USER_ROLES', 'Session',
-	function ($rootScope, $state, $uibModal, AUTHENTICATION_EVENTS, AuthenticationService, USER_ROLES, Session) {
+extranet.run(['$rootScope', '$state', '$uibModal', '$log', 'AUTHENTICATION_EVENTS', 'AuthenticationService', 'USER_ROLES', 'Session', 'ERRORS',
+	function ($rootScope, $state, $uibModal, $log, AUTHENTICATION_EVENTS, AuthenticationService, USER_ROLES, Session, ERRORS) {
 
 	Session.getUser().then(
 		function(user) {
@@ -78,17 +89,19 @@ extranet.run(['$rootScope', '$state', '$uibModal','AUTHENTICATION_EVENTS', 'Auth
 
 	$rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
 
-		$uibModal.open({
-			animation: true,
-			templateUrl: 'app/shared/views/error.html',
-			controller: 'ErrorController',
-			size: 'sm',
-			resolve: {
-				resolvedError: function() {
-					return error;
+		if (error === ERRORS.userNotFound) {
+			var modalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: 'app/shared/views/error.html',
+				controller: 'ErrorController',
+				size: 'sm',
+				resolve: {
+					resolvedError: function() {
+						return error;
+					}
 				}
-			}
-		});
+			});
+		}
 
 	});
 

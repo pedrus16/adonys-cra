@@ -1,6 +1,6 @@
 var module = angular.module('extranetUserModule');
 
-module.factory('RoleService', ['$resource', 'API', function ($resource, API) {
+module.factory('RoleService', ['$resource', '$q', 'API', '$log', function ($resource, $q, API, $log) {
 
 	var RoleResource = $resource(API.baseUrl + '/roles');
 	var Role = {};
@@ -8,8 +8,17 @@ module.factory('RoleService', ['$resource', 'API', function ($resource, API) {
 	Role.items = [];
 
 	Role.getRoles = function() {
-		this.items = RoleResource.query(function() {});
-		return this.items; 
+		var deferred = $q.defer();
+
+		this.items = RoleResource.query(
+			function(roles) {
+				deferred.resolve(roles);
+			},
+			function() {
+				deferred.reject([]);
+			}
+		);
+		return deferred.promise;
 	};
 
 	return Role;

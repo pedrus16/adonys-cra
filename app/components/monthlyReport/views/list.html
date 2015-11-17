@@ -1,3 +1,32 @@
+<h2>
+	Comptes Rendus d'Activité 
+<!-- 	<button type="button" class="btn btn-primary" ui-sref="main.user-add">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nouvel utilisateur
+	</button> -->
+</h2>
+
+<div class="row">
+	<form class="form-inline col-md-4 filter-block" ng-submit="users.search(filter.search)">
+		<div class="input-group">
+			<input type="search" class="form-control" id="searchUser" placeholder="Rechercher" ng-model="filter.search">
+				<span class="input-group-btn">
+				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			</span>
+		</div><!-- /input-group -->
+		<label class="sr-only" for="searchUser">Rechercher un utilisateur</label>
+	</form>
+
+	<div class="col col-md-8 text-right filter-block">
+		<div class="btn-group">
+			<label class="btn btn-default" disabled="disabled"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Filtres</label>
+			<label class="btn btn-default" ng-model="filter.roles[role.name]" uib-btn-checkbox ng-repeat="role in roles track by role.name">
+				{{ role.label }}
+			</label>
+		</div>
+		
+	</div>
+</div>
+
 <table class="table table-striped table-responsive">
 	<tr>
 		<th>Id</th>
@@ -20,3 +49,4 @@
 		<td><a href>Voir</a></td>
 	</tr>
 </table>
+

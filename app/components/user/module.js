@@ -82,14 +82,39 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 		}
 	})
 	.state('main.user-delete', {
-		url:'/users/delete/:userId',
+		url: '/users/delete/:userId',
 		views: {
 			'content': {
-				controller: 'UserDeleteController'
+				controller: 'UserDeleteController',
 			}
 		},
 		data: {
 			authorizedRoles: [USER_ROLES.admin]
+		},
+		resolve: {
+			resolvedUser: ['$stateParams', 'UserService', function($stateParams, UserService) {
+				return UserService.getUser($stateParams.userId);
+			}],
+			resolveConfirm: ['$uibModal', function($uibModal) {
+
+				var modalInstance = $uibModal.open({
+					animation: true,
+					templateUrl: 'app/shared/views/confirm.html',
+					controller: function($scope, $uibModalInstance) {
+						$scope.confirm = function() {
+							$uibModalInstance.close();
+						};
+
+						$scope.close = function() {
+							$uibModalInstance.dismiss();	
+						};
+					},
+					size: 'md'
+				});
+
+				return modalInstance.result;
+
+			}]
 		}
 	});
 
