@@ -1,0 +1,20 @@
+<table>
+
+	<tr><th>{{  }}</th></tr>
+	<tr>
+		<th>Lun.</th>
+		<th>Mar.</th>
+		<th>Mer.</th>
+		<th>Jeu.</th>
+		<th>Ven.</th>
+		<th>Sam.</th>
+		<th>Dim.</th>
+	</tr>
+
+	<tr ng-repeat="row in rows">
+		<td ng-repeat="date in row">
+			{{ date.date | date : 'dd' }}
+		</td>
+	</tr>
+
+</table>

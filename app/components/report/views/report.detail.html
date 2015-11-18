@@ -1,0 +1,9 @@
+<h1>{{ report.client.name }}</h1>
+<h1>{{ report.employee.name }}</h1>
+
+<uib-datepicker ng-model="dt" min-date="minDate" show-weeks="false" starting-day="1" disabled="disabled"></uib-datepicker>
+
+<adonys-calendar month-year="11-2015"></adonys-calendar>
+
+<button type="button" class="btn btn-primary" ui-sref="main.report-delete({ reportId: report.id })">Supprimer le compte rendu</button>
+<button type="button" class="btn btn-primary" ui-sref="main.report-edit({ reportId: report.id })">Modifier le compte rendu</button>

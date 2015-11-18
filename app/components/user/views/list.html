@@ -6,40 +6,33 @@
 </h2>
 
 <div class="row">
-	<form name="form" class="form-inline col-md-4 filter-block" ng-submit="search(filter.search)" novalidate>
-		<div class="input-group">
-			<input type="search" name="search" class="form-control" id="searchUser" placeholder="Rechercher" ng-model="filter.search" required>
+	<form name="form" class="col-sm-6" ng-submit="search(filter.search)" novalidate>
+		<div class="form-group input-group">
+			<input type="search" name="search" class="form-control" placeholder="Rechercher" ng-model="filter.search" required>
 				<span class="input-group-btn">
-				<button type="button" class="btn btn-default" ng-show="!!searching" ng-click="cancelSearch()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-				<button type="submit" class="btn btn-default" ng-disabled="form.search.$invalid" ng-show="!searching"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				<button type="button" class="btn btn-default" ng-if="!!searching" ng-click="cancelSearch()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+				<button type="submit" class="btn btn-default" ng-disabled="form.search.$invalid" ng-if="!searching"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 			</span>
 		</div><!-- /input-group -->
-		<label class="sr-only" for="searchUser">Rechercher un utilisateur</label>
+		<label class="sr-only" for="search">Rechercher un utilisateur</label>
 	</form>
+	<div class="form-group col-sm-2">
+		<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+			<span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Filtres
+		</button>
+	</div>
+</div>
 
-	<div class="col col-md-8 text-right filter-block">
+<div class="collapse row" id="collapseFilter">
+	<div class="form-group col-sm-12">
+		<label class="">Rôles : </label>
 		<div class="btn-group">
-			<label class="btn btn-default" disabled="disabled"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Rôles</label>
 			<label class="btn btn-default" ng-model="filter.roles[role.name]" uib-btn-checkbox ng-repeat="role in roles track by role.name">
 				{{ role.label }}
 			</label>
 		</div>
 	</div>
 </div>
-
-<!-- <div class="filters">
-	<ul class="list-inline">
-		<li>
-			<button class="btn btn-default" type="button">test <span aria-hidden="true" class="glyphicon glyphicon-remove text-muted"></span></button>
-		</li>
-		<li>
-			<button class="btn btn-default" type="button">tag <span aria-hidden="true" class="glyphicon glyphicon-remove text-muted"></span></button>
-		</li>
-		<li>
-			<button class="btn btn-default" type="button">filter <span aria-hidden="true" class="glyphicon glyphicon-remove text-muted"></span></button>
-		</li>
-	</ul>
-</div> -->
 
 <table class="table table-responsive" 
 	infinite-scroll="users.nextPage()" 
@@ -81,7 +74,7 @@
 				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'role'}"></span>
 			</a>
 		</th>
-		<th>Actions</th>
+		<th class="text-right">Actions</th>
 	</tr>
 	 <!-- track by user.id -->
 	<tr ng-repeat="user in users.items" class="animate-repeat">
@@ -91,7 +84,7 @@
 		<td>{{ user.email }}</td>
 		<td>{{ user.company }}</td>
 		<td>{{ user.role }}</td>
-		<td>
+		<td class="text-right">
 			<ul class="list-inline">
 				<li>
 					<a ui-sref="main.user-detail({ userId: user.id })"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>

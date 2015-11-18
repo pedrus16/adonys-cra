@@ -6,7 +6,8 @@ var extranet = angular.module('extranetApp', [
 	'angular-loading-bar',
 
 	'extranetUserModule',
-	'extranetMonthlyReportModule'
+	'extranetReportModule',
+	'adonysCalendarModule'
 ]);
 
 extranet.constant('API', {

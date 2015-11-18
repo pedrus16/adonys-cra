@@ -25,8 +25,9 @@
   <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   
   <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/angular-i18n/angular-locale_fr-fr.js"></script>
   <script src="node_modules/angular-ui-router/build/angular-ui-router.min.js"></script>
-  <script src="node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="node_modules/angular-resource/angular-resource.min.js"></script>
   <script src="node_modules/angular-animate/angular-animate.min.js"></script>
   <script src="node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js"></script>
@@ -34,12 +35,12 @@
 
   <script src="app/app.js"></script>
   <script src="app/components/user/module.js"></script>
-  <script src="app/components/monthlyReport/module.js"></script>
+  <script src="app/components/report/module.js"></script>
 
   <script src="app/components/user/services/authenticationServices.js"></script>
   <script src="app/components/user/services/userServices.js"></script>
   <script src="app/components/user/services/roleServices.js"></script>
-  <script src="app/components/monthlyReport/services/monthlyReportServices.js"></script>
+  <script src="app/components/report/services/reportServices.js"></script>
 
   <script src="app/components/user/controllers/loginController.js"></script>
   <script src="app/components/user/controllers/usersController.js"></script>
@@ -47,6 +48,11 @@
   <script src="app/components/user/controllers/userAddController.js"></script>
   <script src="app/components/user/controllers/userEditController.js"></script>
   <script src="app/components/user/controllers/userDeleteController.js"></script>
-  <script src="app/components/monthlyReport/controllers/monthlyReportsController.js"></script>
+
+  <script src="app/components/report/controllers/reportsController.js"></script>
+  <script src="app/components/report/controllers/reportDetailController.js"></script>
+  <script src="app/components/report/controllers/reportDeleteController.js"></script>
+
+  <script src="app/shared/calendarDirective/directive/calendarDirective.js"></script>  
 </body>
 </html>

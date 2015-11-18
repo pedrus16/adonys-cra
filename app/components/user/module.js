@@ -36,7 +36,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 		}
 	})
 	.state('main.user-detail', {
-		url:'/users/:userId',
+		url:'/users/{userId:int}',
 		views: {
 			'content': {
 				templateUrl: 'app/components/user/views/user.detail.html',
@@ -53,7 +53,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 		}
 	})
 	.state('main.user-add', {
-		url:'/user/add',
+		url:'/users/add',
 		views: {
 			'content': {
 				templateUrl: 'app/components/user/views/user.edit.html',
@@ -65,7 +65,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 		}
 	})
 	.state('main.user-edit', {
-		url:'/users/:userId/edit',
+		url:'/users/{userId:int}/edit',
 		views: {
 			'content': {
 				templateUrl: 'app/components/user/views/user.edit.html',
@@ -82,7 +82,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 		}
 	})
 	.state('main.user-delete', {
-		url: '/users/delete/:userId',
+		url: '/users/delete/{userId:int}',
 		views: {
 			'content': {
 				controller: 'UserDeleteController',

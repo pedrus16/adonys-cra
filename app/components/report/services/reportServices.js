@@ -1,6 +1,6 @@
-var module = angular.module('extranetMonthlyReportModule');
+var module = angular.module('extranetReportModule');
 
-module.factory('MonthlyReportService', ['$rootScope', '$resource', '$state', '$q', 'API', 'ERRORS', '$log',
+module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API', 'ERRORS', '$log',
 	function ($rootScope, $resource, $state, $q, API, ERRORS, $log) {
 
 	var ReportResource = $resource(API.baseUrl + '/reports/:reportId');
@@ -101,7 +101,7 @@ module.factory('MonthlyReportService', ['$rootScope', '$resource', '$state', '$q
 					break;
 				}
 			}
-			if (callback) { callback(); }
+			(callback || angular.noop)();
 		});
 	};
 

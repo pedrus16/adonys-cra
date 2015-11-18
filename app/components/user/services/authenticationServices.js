@@ -64,7 +64,7 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', function ($ht
 module.service('Session', ['$q', function ($q) {
   this.getUser = function() {
     var deferred = $q.defer();
-    if (typeof this.id === "undefined" || this.id === null)
+    if (angular.isUndefined(this.id) || this.id === null)
     {
       var data = {id: 42, userId: 1, role: 'admin' }; //TODO Webservice call
       if (data.id === null) //Check for error

@@ -101,7 +101,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 					break;
 				}
 			}
-			if (callback) { callback(); }
+			(callback || angular.noop)();
 		});
 	};
 
