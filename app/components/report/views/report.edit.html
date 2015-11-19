@@ -1,0 +1,33 @@
+<h2 ng-if="title">{{ title }}</h2>
+<form class="form-horizontal" ng-submit="submit(report)" name="form" novalidate>
+
+	<div class="form-group has-feedback" ng-class="{ 'has-success': (form.client.$valid && form.client.$dirty), 'has-error': (form.client.$invalid && form.client.$dirty) }">
+		<div class="col-sm-10">
+			<label class="control-label sr-only" for="client">Prénom</label>
+			<input type="text" class="form-control" placeholder="Prénom" name="client" ng-model="report.client.name" required>
+			<span class="glyphicon form-control-feedback" aria-hidden="true" ng-class="{ 'glyphicon-ok': (form.client.$valid && form.client.$dirty), 'glyphicon-remove': (form.client.$invalid && form.client.$dirty) }"></span>
+		</div>
+	</div>
+
+	<div class="form-group has-feedback" ng-class="{ 'has-success': (form.employee.$valid && form.employee.$dirty), 'has-error': (form.employee.$invalid && form.employee.$dirty) }">
+		<div class="col-sm-10">
+			<label class="control-label sr-only" for="employee">Prénom</label>
+			<input type="text" class="form-control" placeholder="Prénom" name="employee" ng-model="report.employee.name" required>
+			<span class="glyphicon form-control-feedback" aria-hidden="true" ng-class="{ 'glyphicon-ok': (form.employee.$valid && form.employee.$dirty), 'glyphicon-remove': (form.employee.$invalid && form.employee.$dirty) }"></span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-10">
+			<div class="input-group">
+				<input type="text" class="form-control" is-open="datePickerMin.opened" uib-datepicker-popup="{{ datePickerFormat }}" datepicker-mode="'month'" min-mode="'month'" ng-model="dateMin" placeholder="Période de" max-date="dateMax" current-text="Ce mois-ci" clear-text="Effacer" close-text="Fermer"/>
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="datePickerMin.opened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<adonys-calendar active-month="{{ report.createdAt * 1000 | date: 'MM' }}" active-year="{{ report.createdAt * 1000 | date: 'yyyy' }}" ng-model="report.days"></adonys-calendar>
+
+</form>

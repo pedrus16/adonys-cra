@@ -1,19 +1,23 @@
-<table>
+<table class="adonys-calendar">
 
-	<tr><th>{{  }}</th></tr>
-	<tr>
-		<th>Lun.</th>
-		<th>Mar.</th>
-		<th>Mer.</th>
-		<th>Jeu.</th>
-		<th>Ven.</th>
-		<th>Sam.</th>
-		<th>Dim.</th>
+	<tr><th colspan="7" class="text-center month-label">{{ month }} {{ year }}</th></tr>
+	<tr class="week-row">
+		<th class="text-center">Lun.</th>
+		<th class="text-center">Mar.</th>
+		<th class="text-center">Mer.</th>
+		<th class="text-center">Jeu.</th>
+		<th class="text-center">Ven.</th>
+		<th class="text-center">Sam.</th>
+		<th class="text-center">Dim.</th>
 	</tr>
 
-	<tr ng-repeat="row in rows">
-		<td ng-repeat="date in row">
-			{{ date.date | date : 'dd' }}
+	<tr ng-repeat="row in rows" class="date-row">
+		<td ng-repeat="date in row" class="text-center" ng-class="{ 'secondary': date.secondary }" uib-popover-template="'app/shared/calendarDirective/templates/popover.html'" popover-trigger="mouseenter" popover-append-to-body="true">
+			<div class="date-content" ng-class="{ 'secondary': date.secondary }">
+				<div class="half" ng-class="getStyleClass(date.type[0])"></div>
+				<div class="half" ng-class="getStyleClass(date.type[1])"></div>
+				<span>{{ date.date | date : 'dd' }}</span>
+			</div>
 		</td>
 	</tr>
 

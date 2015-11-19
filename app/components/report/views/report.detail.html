@@ -1,9 +1,14 @@
-<h1>{{ report.client.name }}</h1>
-<h1>{{ report.employee.name }}</h1>
+<h3>{{ report.client.name }} <small>Client</small></h3>
+<h3>{{ report.employee.name }} <small>Collaborateur</small></h3>
 
-<uib-datepicker ng-model="dt" min-date="minDate" show-weeks="false" starting-day="1" disabled="disabled"></uib-datepicker>
+<h2>Feuille de presence</h2>
+<div class="form-group">
+	<adonys-calendar days-state="report.days" active-month="{{ report.createdAt * 1000 | date: 'MM' }}" active-year="{{ report.createdAt * 1000 | date: 'yyyy' }}"></adonys-calendar>
+</div>
 
-<adonys-calendar month-year="11-2015"></adonys-calendar>
+<h2>Detail des activites</h2>
+<p>{{ report.notes }}</p>
 
 <button type="button" class="btn btn-primary" ui-sref="main.report-delete({ reportId: report.id })">Supprimer le compte rendu</button>
 <button type="button" class="btn btn-primary" ui-sref="main.report-edit({ reportId: report.id })">Modifier le compte rendu</button>
+

@@ -25,6 +25,12 @@ module.exports = function(grunt) {
           livereload: true,
         },
       },
+      files: {
+        files: ['app/**/*.html', 'index.html'],
+        options: {
+          livereload: true,
+        },
+      },
     },
     sass: {                              // Task
       dist: {                            // Target
