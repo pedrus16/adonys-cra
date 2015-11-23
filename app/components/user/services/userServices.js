@@ -16,6 +16,46 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 	User.order = '';
 	User.filter = {};
 
+	/**
+
+		@api {get} /users Query User
+		@apiVersion 0.0.1
+		@apiName QueryUser
+		@apiGroup User
+
+		@apiParam {String} [search] Research keyword.
+		@apiParam (Pagination) {String} [page] Page number.
+		@apiParam (Pagination) {String} [limit] Maximum number of elements to return.
+		@apiParam (Sorting) {String} [sortBy] Name of the property to sort by.
+		@apiParam (Sorting) {String="asc", "desc"} [order] Sort order (ascending/descending).
+
+		@apiParamExample {get} Search-Example:
+		/users?search=John&page=1&limit=20&sortBy=firstname&order=asc
+
+		@apiSuccess {Number} id Users unique ID.
+		@apiSuccess {String} firstname Firstname of the User.
+		@apiSuccess {String} lastname  Lastname of the User.
+		@apiSuccess {String} email Email of the User.
+		@apiSuccess {String} company Company name the user is working at.
+		@apiSuccess {String} role Role of the user (administrator, employee, client, responsable).
+
+		@apiSuccessExample Success-Response:
+		HTTP/1.1 200 OK
+		{
+			"id": "42",
+			"firstname": "John",
+			"lastname": "Doe",
+			"email": "john.doe@email.com",
+			"company": "Pizza Hut",
+			"role": "client"
+		}
+
+		@apiError NotFound The id of the User was not found.
+
+		@apiErrorExample Error-Response:
+		HTTP/1.1 404 Not Found
+		"Not Found"
+	*/	
 	User.sort = function() {
 		page = 1;
 		this.end = false;
@@ -64,6 +104,38 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 
 	};
 	
+	/**
+		@api {get} /users/:id Get User
+		@apiVersion 0.0.1
+		@apiName GetUser
+		@apiGroup User
+
+		@apiParam {Number} id Users unique ID.
+
+		@apiSuccess {Number} id Users unique ID.
+		@apiSuccess {String} firstname Firstname of the User.
+		@apiSuccess {String} lastname  Lastname of the User.
+		@apiSuccess {String} email Email of the User.
+		@apiSuccess {String} company Company name the user is working at.
+		@apiSuccess {String} role Role of the user (administrator, employee, client, responsable).
+
+		@apiSuccessExample Success-Response:
+		HTTP/1.1 200 OK
+		{
+			"id": "42",
+			"firstname": "John",
+			"lastname": "Doe",
+			"email": "john.doe@email.com",
+			"company": "Pizza Hut",
+			"role": "client"
+		}
+
+		@apiError NotFound The id of the User was not found.
+
+		@apiErrorExample Error-Response:
+		HTTP/1.1 404 Not Found
+		"Not Found"
+	*/	
 	User.getUser = function(id) {
 		var deferred = $q.defer();
 
@@ -79,6 +151,38 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 
 	};
 
+	/**
+		@api {post} /users Add User
+		@apiVersion 0.0.1
+		@apiName CreateUser
+		@apiGroup User
+
+		@apiParam {String} firstname Firstname of the User.
+		@apiParam {String} lastname  Lastname of the User.
+		@apiParam {String} email Email of the User.
+		@apiParam {String="client","employee","responsable","administrator"} role Role of the user.
+		@apiParam {String} [company] Company name the user is working at.
+
+		@apiSuccess {Number} id Users unique ID.
+		@apiSuccess {String} firstname Firstname of the User.
+		@apiSuccess {String} lastname  Lastname of the User.
+		@apiSuccess {String} email Email of the User.
+		@apiSuccess {String} company Company name the user is working at.
+		@apiSuccess {String} role Role of the user (administrator, employee, client, responsable).
+
+		@apiSuccessExample Success-Response:
+		HTTP/1.1 200 OK
+		{
+			"id": "42",
+			"firstname": "John",
+			"lastname": "Doe",
+			"email": "john.doe@email.com",
+			"company": "Pizza Hut",
+			"role": "client"
+		}
+
+		@apiError TODO Errors not yet defined
+	*/	
 	User.create = function(user) {
 		var self = this;
 		var newUser = UserResource.save({}, user, function() {
@@ -87,6 +191,42 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 
 	};
 
+	/**
+		@api {put} /users/:id Edit User
+		@apiVersion 0.0.1
+		@apiName EditUser
+		@apiGroup User
+
+		@apiParam {String} [firstname] Firstname of the User.
+		@apiParam {String} [lastname]  Lastname of the User.
+		@apiParam {String} [email] Email of the User.
+		@apiParam {String} [company] Company name the user is working at.
+		@apiParam {String="client","employee","responsable","administrator"} [role] Role of the user.
+
+		@apiSuccess {Number} id Users unique ID.
+		@apiSuccess {String} firstname Firstname of the User.
+		@apiSuccess {String} lastname  Lastname of the User.
+		@apiSuccess {String} email Email of the User.
+		@apiSuccess {String} company Company name the user is working at.
+		@apiSuccess {String} role Role of the user (administrator, employee, client, responsable).
+
+		@apiSuccessExample Success-Response:
+		HTTP/1.1 200 OK
+		{
+			"id": "42",
+			"firstname": "John",
+			"lastname": "Doe",
+			"email": "john.doe@email.com",
+			"company": "Pizza Hut",
+			"role": "client"
+		}
+
+		@apiError NotFound The id of the User was not found.
+
+		@apiErrorExample Error-Response:
+		HTTP/1.1 404 Not Found
+		"Not Found"
+	*/
 	User.update = function(user, callback) {
 		var self = this;
 		var UserUpdateResource = $resource(API.baseUrl + '/users/:userId', null,
@@ -105,6 +245,38 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		});
 	};
 
+	/**
+		@api {delete} /users/:id Delete User
+		@apiVersion 0.0.1
+		@apiName DeleteUser
+		@apiGroup User
+
+		@apiParam {Number} id Users unique ID.
+
+		@apiSuccess {Number} id Deleted user's ID.
+		@apiSuccess {String} firstname Firstname of the deleted user.
+		@apiSuccess {String} lastname  Lastname of the delted user.
+		@apiSuccess {String} email Email of the deleted user.
+		@apiSuccess {String} company Deleted users's company.
+		@apiSuccess {String} role Role of the deleted user (administrator, employee, client, responsable).
+
+		@apiSuccessExample Success-Response:
+		HTTP/1.1 200 OK
+		{
+			"id": "42",
+			"firstname": "John",
+			"lastname": "Doe",
+			"email": "john.doe@email.com",
+			"company": "Pizza Hut",
+			"role": "client"
+		}
+
+		@apiError NotFound The id of the User was not found.
+
+		@apiErrorExample Error-Response:
+		HTTP/1.1 404 Not Found
+		"Not Found"
+	*/	
 	User.delete = function(id) {
 		var self = this;
 

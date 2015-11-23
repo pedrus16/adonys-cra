@@ -21,14 +21,8 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', function ($ht
   var authService = {};
 
   authService.login = function(username, password) {
-    // return $http
-    // .post('/login', credentials)
-    // .then(function (res) {
-    //   Session.create(res.data.id, res.data.user.id,
-    //     res.data.user.role);
-    //   return res.data.userIdser;
-    // });
-    Session.create(42, 1, 'admin'); // TODO Fetch from webservice
+    // TODO API call
+    Session.create(42, 1, 'admin'); // TODO Fetch from API
 
     var deferred = $q.defer();
     var user = {
@@ -43,6 +37,7 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', function ($ht
   };
 
   authService.logout = function() {
+    // TODO API call
     Session.destroy();
   };
 

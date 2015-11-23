@@ -7,6 +7,27 @@ module.factory('RoleService', ['$resource', '$q', 'API', '$log', function ($reso
 	
 	Role.items = [];
 
+	/**
+		@api {get} /roles Get Roles
+		@apiVersion 0.0.1
+		@apiName GetUser
+		@apiGroup Role
+
+		@apiSuccess {Number} id Users unique ID.
+
+		@apiSuccessExample Success-Response:
+		HTTP/1.1 200 OK
+		[
+			"id": "42",
+			"firstname": "John",
+			"lastname": "Doe",
+			"email": "john.doe@email.com",
+			"company": "Pizza Hut",
+			"role": "client"
+		}
+
+		@apiError TODO Errors not yet defined
+	*/	
 	Role.getRoles = function() {
 		var deferred = $q.defer();
 

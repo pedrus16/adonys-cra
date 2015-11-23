@@ -18,6 +18,16 @@ module.exports = function(grunt) {
           spawn: false,
         },
       },
+      apidoc: {
+        files: ['app/**/*.js'],
+        tasks: ['apidoc'],
+        options: {
+          livereload: {
+            host: 'localhost',
+            port: 35730,
+          },
+        },
+      },
       css: {
         files: ['assets/sass/**/*.scss'],
         tasks: ['sass'],
@@ -46,10 +56,22 @@ module.exports = function(grunt) {
         }]
       },
     },
+    apidoc: {
+      extranet: {
+        src: "app/",
+        dest: "apidoc/",
+        template: 'apidocTemplate/',
+        options: {
+          debug: true,
+          log: true
+        }
+      }
+    }
   });
   // Each plugin must be loaded following this pattern
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-apidoc');
  
 };
