@@ -16,6 +16,102 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 	Report.order = '';
 	Report.filter = {};
 
+	/**
+		@apiDefine ReportSuccess
+
+		@apiSuccess {Number} id Report unique ID.
+		@apiSuccess {Date} createdAt Report creation date.
+		@apiSuccess {Object} state Report current state {"id", "label"}.
+		@apiSuccess {Array="T", "CP", "RTT", "PC", "F", "M", "CS", "CE"} days Array of 31 days, each holding two values, one for the morning and one for the afternoon.
+		@apiSuccess {Object} employee User object of the employee who wrote the report {"id", "name"}.
+		@apiSuccess {Object} client User object of the client concerned by this report {"id", "name"}.
+		@apiSuccess {String} notes The report additional notes.
+
+		@apiSuccessExample Success-Response:
+		HTTP/1.1 200 OK
+		{
+			id: "42",
+			createdAt: 1420070400,
+			state: {
+				id: "3", 
+				label: "A remplir"
+			},
+			days: [
+				["T", "T"], 
+				["T", "T"], 
+				["T", "T"], 
+				["CP", "CP"], 
+				["CS", "T"],
+				…
+			],
+			employee: {
+				id: "1", 
+				name: "John Doe"
+			},
+			client: {
+				id: "2", 
+				name: "Adonys (Alice Martin)"
+			},
+			notes: "J'ai fait du café."
+		}
+	*/
+
+	/**
+		@api {get} /reports Query Report
+		@apiVersion 0.0.1
+		@apiName QueryReport
+		@apiGroup Report
+
+		@apiParam {String} [search] Research keyword.
+		@apiParam (Pagination) {String} [page] Page number.
+		@apiParam (Pagination) {String} [limit] Maximum number of elements to return.
+		@apiParam (Sorting) {String} [sortBy] Name of the property to sort by.
+		@apiParam (Sorting) {String="asc", "desc"} [order] Sort order (ascending/descending).
+
+		@apiParamExample {get} Search-Example:
+		/reports?search=Adonys&page=1&limit=20&sortBy=id&order=asc
+
+		@apiSuccess {Number} id Report unique ID.
+		@apiSuccess {Date} createdAt Report creation date.
+		@apiSuccess {Object} state Report current state {"id", "label"}.
+		@apiSuccess {Array} days Array of 31 days, each holding two values, one for the morning and one for the afternoon.
+		@apiSuccess {Object} employee User object of the employee who wrote the report {"id", "name"}.
+		@apiSuccess {Object} client User object of the client concerned by this report {"id", "name"}.
+		@apiSuccess {String} notes The report additional notes.
+
+		@apiSuccessExample Success-Response:
+		HTTP/1.1 200 OK
+		[
+			{
+				id: "42",
+				createdAt: 1420070400,
+				state: {
+					id: "3", 
+					label: "A remplir"
+				},
+				days: [
+					["T", "T"], 
+					["T", "T"], 
+					["T", "T"], 
+					["CP", "CP"], 
+					["CS", "T"],
+					…
+				],
+				employee: {
+					id: "1", 
+					name: "John Doe"
+				},
+				client: {
+					id: "2", 
+					name: "Adonys (Alice Martin)"
+				},
+				notes: "J'ai fait du café."
+			},
+			...
+		]
+
+		@apiError TODO Errors not yet defined.
+	*/	
 	Report.sort = function() {
 		page = 1;
 		this.end = false;
@@ -64,6 +160,22 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 
 	};
 	
+	/**
+		@api {get} /reports/:id Get Report
+		@apiVersion 0.0.1
+		@apiName GetReport
+		@apiGroup Report
+
+		@apiParam {Number} id Reports unique ID.
+
+		@apiUse ReportSuccess
+
+		@apiError NotFound The id of the Report was not found.
+
+		@apiErrorExample Error-Response:
+		HTTP/1.1 404 Not Found
+		"Not Found"
+	*/
 	Report.getReport = function(id) {
 		var deferred = $q.defer();
 
@@ -79,6 +191,33 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 
 	};
 
+	/**
+		@api {post} /reports Create Report
+		@apiVersion 0.0.1
+		@apiName CreateReport
+		@apiGroup Report
+
+		@apiParam {Number} id Report unique ID.
+		@apiParam {Array} days Array of 31 days, each holding two values, one for the morning and one for the afternoon.
+		@apiParam {Object} employee User object of the employee who wrote the report {"id", "name"}.
+		@apiParam {Object} client User object of the client concerned by this report {"id", "name"}.
+		@apiParam {Date} [createdAt] Report creation date.
+		@apiParam {Object} [state] Report current state {"id", "label"}.
+		@apiParam {String} [notes] The report additional notes.
+
+		@apiUse ReportSuccess
+
+		@apiParam (Days) {String} T Jour Travaillé - Worked day.
+		@apiParam (Days) {String} CP Congé Payé - Vacation.
+		@apiParam (Days) {String} RTT Jour RTT - Vacation.
+		@apiParam (Days) {String} PC Pont Client - Client Bridge.
+		@apiParam (Days) {String} F Formation.
+		@apiParam (Days) {String} M Maladie - Ill.
+		@apiParam (Days) {String} CS Congé sans Solde - Unpaid vacation.
+		@apiParam (Days) {String} CE Congé Exceptionnel - Exceptional holiday.
+
+		@apiError TODO Errors not yet defined.
+	*/	
 	Report.create = function(report) {
 		var self = this;
 		var newReport = ReportResource.save({}, report, function() {
@@ -87,6 +226,28 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 
 	};
 
+	/**
+		@api {put} /reports Edit Report
+		@apiVersion 0.0.1
+		@apiName EditReport
+		@apiGroup Report
+
+		@apiParam {Number} id Report unique ID.
+		@apiParam {Array} [days] Array of 31 days, each holding two values, one for the morning and one for the afternoon.
+		@apiParam {Object} [employee] User object of the employee who wrote the report {"id", "name"}.
+		@apiParam {Object} [client] User object of the client concerned by this report {"id", "name"}.
+		@apiParam {Date} [createdAt] Report creation date.
+		@apiParam {Object} [state] Report current state {"id", "label"}.
+		@apiParam {String} [notes] The report additional notes.
+
+		@apiUse ReportSuccess
+
+		@apiError NotFound The id of the Report was not found.
+
+		@apiErrorExample Error-Response:
+		HTTP/1.1 404 Not Found
+		"Not Found"
+	*/
 	Report.update = function(report, callback) {
 		var self = this;
 		var ReportUpdateResource = $resource(API.baseUrl + '/reports/:reportId', null,
@@ -105,6 +266,22 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		});
 	};
 
+	/**
+		@api {delete} /reports/:id Delete Report
+		@apiVersion 0.0.1
+		@apiName DeleteReport
+		@apiGroup Report
+
+		@apiParam {Number} id Reports unique ID.
+
+		@apiUse ReportSuccess
+
+		@apiError NotFound The id of the Report was not found.
+
+		@apiErrorExample Error-Response:
+		HTTP/1.1 404 Not Found
+		"Not Found"
+	*/	
 	Report.delete = function(id) {
 		var self = this;
 

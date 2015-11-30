@@ -17,25 +17,59 @@ module.constant('USER_ROLES', {
   collaborateur: 'collaborateur'
 });
 
-module.factory('AuthenticationService', ['$http', 'Session', '$q', function ($http, Session, $q) {
+module.factory('AuthenticationService', ['$http', 'Session', '$q', 'API', function ($http, Session, $q, API) {
   var authService = {};
 
-  authService.login = function(username, password) {
-    // TODO API call
-    Session.create(42, 1, 'admin'); // TODO Fetch from API
+  /**
+    @api {post} /login Login
+    @apiVersion 0.0.1
+    @apiName Login
+    @apiGroup Authentication
 
+    @apiParam {Object} credentials User credentials {username, password}.
+    @apiParam (Credentials) {String} username User's email/username.
+    @apiParam (Credentials) {String} password User's password.
+
+    @apiSuccess {Number} TODO Define return value.
+
+  */
+  authService.login = function(credentials) {
     var deferred = $q.defer();
-    var user = {
-      sessionId: 42, 
-      userId: 1, 
-      role: 'admin'
-    };
 
-    deferred.resolve(user);
+    if (!credentials.hasOwnProperty('username') || !credentials.hasOwnProperty('password')) {
+      deferred.reject();
+    }
+    else {
+      $http({
+        method: 'POST',
+        url: API.baseUrl + '/login_check',
+        data: credentials
+      }).then(
+        function(response) {
+          var user = response;
+          Session.create(42, 1, 'admin');
+          deferred.resolve(user);
+        },
+        function(response) {
+          deferred.reject();
+        }
+      );
+    }
 
     return deferred.promise;
   };
 
+  /**
+    @api {post} /logout Logout
+    @apiVersion 0.0.1
+    @apiName Logout
+    @apiGroup Authentication
+
+    @apiParam {String} session User session.
+
+    @apiSuccess {Boolean} success Return true if the session has been destroyed, false otherwise.
+
+  */
   authService.logout = function() {
     // TODO API call
     Session.destroy();
@@ -88,7 +122,7 @@ module.service('Session', ['$q', function ($q) {
   };
 }]);
 
-module.factory('AuthenticationResolver', ['$q', 'Session', 
+module.factory('AuthenticationResolver', ['$q', 'Session',
   function($q, Session) {
 
   return {

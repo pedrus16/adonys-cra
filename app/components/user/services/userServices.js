@@ -17,7 +17,28 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 	User.filter = {};
 
 	/**
+		@apiDefine UserSuccess
 
+		@apiSuccess {Number} id Users unique ID.
+		@apiSuccess {String} firstname Firstname of the User.
+		@apiSuccess {String} lastname  Lastname of the User.
+		@apiSuccess {String} email Email of the User.
+		@apiSuccess {String} company Company name the user is working at.
+		@apiSuccess {String} role Role of the user (administrator, employee, client, responsable).
+
+		@apiSuccessExample Success-Response:
+		HTTP/1.1 200 OK
+		{
+			"id": "42",
+			"firstname": "John",
+			"lastname": "Doe",
+			"email": "john.doe@email.com",
+			"company": "Pizza Hut",
+			"role": "client"
+		}
+	*/
+
+	/**
 		@api {get} /users Query User
 		@apiVersion 0.0.1
 		@apiName QueryUser
@@ -41,20 +62,19 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 
 		@apiSuccessExample Success-Response:
 		HTTP/1.1 200 OK
-		{
-			"id": "42",
-			"firstname": "John",
-			"lastname": "Doe",
-			"email": "john.doe@email.com",
-			"company": "Pizza Hut",
-			"role": "client"
-		}
+		[
+			{
+				"id": "42",
+				"firstname": "John",
+				"lastname": "Doe",
+				"email": "john.doe@email.com",
+				"company": "Pizza Hut",
+				"role": "client"
+			},
+			...
+		]
 
-		@apiError NotFound The id of the User was not found.
-
-		@apiErrorExample Error-Response:
-		HTTP/1.1 404 Not Found
-		"Not Found"
+		@apiError TODO Errors not yet defined.
 	*/	
 	User.sort = function() {
 		page = 1;
@@ -112,23 +132,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 
 		@apiParam {Number} id Users unique ID.
 
-		@apiSuccess {Number} id Users unique ID.
-		@apiSuccess {String} firstname Firstname of the User.
-		@apiSuccess {String} lastname  Lastname of the User.
-		@apiSuccess {String} email Email of the User.
-		@apiSuccess {String} company Company name the user is working at.
-		@apiSuccess {String} role Role of the user (administrator, employee, client, responsable).
-
-		@apiSuccessExample Success-Response:
-		HTTP/1.1 200 OK
-		{
-			"id": "42",
-			"firstname": "John",
-			"lastname": "Doe",
-			"email": "john.doe@email.com",
-			"company": "Pizza Hut",
-			"role": "client"
-		}
+		@apiUse UserSuccess
 
 		@apiError NotFound The id of the User was not found.
 
@@ -163,23 +167,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		@apiParam {String="client","employee","responsable","administrator"} role Role of the user.
 		@apiParam {String} [company] Company name the user is working at.
 
-		@apiSuccess {Number} id Users unique ID.
-		@apiSuccess {String} firstname Firstname of the User.
-		@apiSuccess {String} lastname  Lastname of the User.
-		@apiSuccess {String} email Email of the User.
-		@apiSuccess {String} company Company name the user is working at.
-		@apiSuccess {String} role Role of the user (administrator, employee, client, responsable).
-
-		@apiSuccessExample Success-Response:
-		HTTP/1.1 200 OK
-		{
-			"id": "42",
-			"firstname": "John",
-			"lastname": "Doe",
-			"email": "john.doe@email.com",
-			"company": "Pizza Hut",
-			"role": "client"
-		}
+		@apiUse UserSuccess
 
 		@apiError TODO Errors not yet defined
 	*/	
@@ -203,23 +191,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		@apiParam {String} [company] Company name the user is working at.
 		@apiParam {String="client","employee","responsable","administrator"} [role] Role of the user.
 
-		@apiSuccess {Number} id Users unique ID.
-		@apiSuccess {String} firstname Firstname of the User.
-		@apiSuccess {String} lastname  Lastname of the User.
-		@apiSuccess {String} email Email of the User.
-		@apiSuccess {String} company Company name the user is working at.
-		@apiSuccess {String} role Role of the user (administrator, employee, client, responsable).
-
-		@apiSuccessExample Success-Response:
-		HTTP/1.1 200 OK
-		{
-			"id": "42",
-			"firstname": "John",
-			"lastname": "Doe",
-			"email": "john.doe@email.com",
-			"company": "Pizza Hut",
-			"role": "client"
-		}
+		@apiUse UserSuccess
 
 		@apiError NotFound The id of the User was not found.
 
@@ -253,23 +225,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 
 		@apiParam {Number} id Users unique ID.
 
-		@apiSuccess {Number} id Deleted user's ID.
-		@apiSuccess {String} firstname Firstname of the deleted user.
-		@apiSuccess {String} lastname  Lastname of the delted user.
-		@apiSuccess {String} email Email of the deleted user.
-		@apiSuccess {String} company Deleted users's company.
-		@apiSuccess {String} role Role of the deleted user (administrator, employee, client, responsable).
-
-		@apiSuccessExample Success-Response:
-		HTTP/1.1 200 OK
-		{
-			"id": "42",
-			"firstname": "John",
-			"lastname": "Doe",
-			"email": "john.doe@email.com",
-			"company": "Pizza Hut",
-			"role": "client"
-		}
+		@apiUse UserSuccess
 
 		@apiError NotFound The id of the User was not found.
 

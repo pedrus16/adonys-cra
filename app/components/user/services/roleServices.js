@@ -13,17 +13,21 @@ module.factory('RoleService', ['$resource', '$q', 'API', '$log', function ($reso
 		@apiName GetUser
 		@apiGroup Role
 
-		@apiSuccess {Number} id Users unique ID.
+		@apiSuccess {String} id Human readable ID of the role.
+		@apiSuccess {String} label Role label (can be translated).
 
 		@apiSuccessExample Success-Response:
 		HTTP/1.1 200 OK
 		[
-			"id": "42",
-			"firstname": "John",
-			"lastname": "Doe",
-			"email": "john.doe@email.com",
-			"company": "Pizza Hut",
-			"role": "client"
+			{
+				"id": "administrator",
+				"label": "Administrateur"
+			},
+			{
+				"id": "responsable",
+				"label": "Responsable"
+			},
+			...
 		}
 
 		@apiError TODO Errors not yet defined

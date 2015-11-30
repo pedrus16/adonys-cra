@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         dest: "apidoc/",
         template: 'apidocTemplate/',
         options: {
-          debug: true,
+          debug: false,
           log: true
         }
       }

@@ -11,7 +11,7 @@ var extranet = angular.module('extranetApp', [
 ]);
 
 extranet.constant('API', {
-	baseUrl: 'http://5641ef34062a801100ca82b4.mockapi.io/api'
+	baseUrl: 'http://localhost:8000/api'
 });
 
 extranet.constant('ERRORS', {
@@ -23,7 +23,7 @@ extranet.controller('ApplicationController', ['$scope', function ($scope) {
 	// Useless for now
 }]);
 
-extranet.controller('ErrorController', ['$scope', '$uibModalInstance', 'resolvedError', 
+extranet.controller('ErrorController', ['$scope', '$uibModalInstance', 'resolvedError',
 	function ($scope, $uibModalInstance, resolvedError) {
 	// Used by the error modal
 	$scope.error = resolvedError;
@@ -35,7 +35,7 @@ extranet.controller('ErrorController', ['$scope', '$uibModalInstance', 'resolved
 
 extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', 'USER_ROLES', 'cfpLoadingBarProvider',
 	function($stateProvider, $urlRouterProvider, $resourceProvider, USER_ROLES, cfpLoadingBarProvider) {
-	
+
 	$urlRouterProvider.otherwise('/users');
 	$resourceProvider.defaults.stripTrailingSlashes = false;
 	cfpLoadingBarProvider.includeSpinner = false;
