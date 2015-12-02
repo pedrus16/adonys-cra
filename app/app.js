@@ -11,7 +11,7 @@ var extranet = angular.module('extranetApp', [
 ]);
 
 extranet.constant('API', {
-	baseUrl: 'http://localhost:8000/api'
+	baseUrl: 'http://localhost/extranet-api/web/app_dev.php'
 });
 
 extranet.constant('ERRORS', {
@@ -33,12 +33,13 @@ extranet.controller('ErrorController', ['$scope', '$uibModalInstance', 'resolved
 	};
 }]);
 
-extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', 'USER_ROLES', 'cfpLoadingBarProvider',
-	function($stateProvider, $urlRouterProvider, $resourceProvider, USER_ROLES, cfpLoadingBarProvider) {
+extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', '$httpProvider', 'USER_ROLES', 'cfpLoadingBarProvider',
+	function($stateProvider, $urlRouterProvider, $resourceProvider, $httpProvider, USER_ROLES, cfpLoadingBarProvider) {
 
 	$urlRouterProvider.otherwise('/users');
 	$resourceProvider.defaults.stripTrailingSlashes = false;
 	cfpLoadingBarProvider.includeSpinner = false;
+	// $httpprovider.defaults.headers.common = ;
 
 	$stateProvider
 	.state('main', {
@@ -47,7 +48,7 @@ extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', 'U
 		controller: 'ApplicationController',
 		templateUrl: 'app/shared/views/main.html',
 		data: {
-			authorizedRoles: [USER_ROLES.all]
+			authorizedRoles: [USER_ROLES.ROLE_ALL]
 		},
 		resolve: {
             isAuthenticated: ['AuthenticationResolver', function (AuthenticationResolver) {
@@ -64,8 +65,8 @@ extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', 'U
 
 }]);
 
-extranet.run(['$rootScope', '$state', '$uibModal', '$log', 'AUTHENTICATION_EVENTS', 'AuthenticationService', 'USER_ROLES', 'Session', 'ERRORS',
-	function ($rootScope, $state, $uibModal, $log, AUTHENTICATION_EVENTS, AuthenticationService, USER_ROLES, Session, ERRORS) {
+extranet.run(['$rootScope', '$state', '$uibModal', '$log', '$http', 'AUTHENTICATION_EVENTS', 'AuthenticationService', 'USER_ROLES', 'Session', 'ERRORS',
+	function ($rootScope, $state, $uibModal, $log, $http, AUTHENTICATION_EVENTS, AuthenticationService, USER_ROLES, Session, ERRORS) {
 
 	Session.getUser().then(
 		function(user) {
@@ -73,7 +74,7 @@ extranet.run(['$rootScope', '$state', '$uibModal', '$log', 'AUTHENTICATION_EVENT
 				if (next.data.hasOwnProperty('authorizedRoles'))
 				{
 					var authorizedRoles = next.data.authorizedRoles;
-					if (!AuthenticationService.isAuthorized(authorizedRoles) && authorizedRoles.indexOf(USER_ROLES.all) === -1) {
+					if (!AuthenticationService.isAuthorized(authorizedRoles) && authorizedRoles.indexOf(USER_ROLES.ROLE_ALL) === -1) {
 						event.preventDefault();
 						if (AuthenticationService.isAuthenticated()) {
 							// user is not allowed
@@ -112,6 +113,7 @@ extranet.run(['$rootScope', '$state', '$uibModal', '$log', 'AUTHENTICATION_EVENT
 	});
 
 	$rootScope.$on(AUTHENTICATION_EVENTS.loginSuccess, function (event, next) {
+		$http.defaults.headers.common.Authorization = 'Bearer ' + Session.token;
 		$state.go('main.users');
-    });
+  });
 }]);

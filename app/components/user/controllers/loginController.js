@@ -5,13 +5,13 @@ module.controller('LoginController', ['$scope', '$rootScope', 'AUTHENTICATION_EV
 
 	$scope.credentials = {
 		username: 'pierre.nole@gmail.com',
-		password: '123456'
+		password: 'pierre'
 	};
 
 	$scope.login = function (username, password) {
 		AuthenticationService.login(username, password).then(function (user) {
+			Session.create(user.id, user.token, user.id, 'admin');
 			$rootScope.$broadcast(AUTHENTICATION_EVENTS.loginSuccess);
-			Session.create(user.sessionId, user.userId, user.role);
 		}, function () {
 			$rootScope.$broadcast(AUTHENTICATION_EVENTS.loginFailed);
 		});

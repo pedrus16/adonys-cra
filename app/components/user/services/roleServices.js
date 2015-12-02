@@ -1,10 +1,18 @@
 var module = angular.module('extranetUserModule');
 
-module.factory('RoleService', ['$resource', '$q', 'API', '$log', function ($resource, $q, API, $log) {
+module.constant('USER_ROLES', {
+  ROLE_ALL: '*',
+  ROLE_ADMIN: 'admin',
+  ROLE_RESPONSABLE: 'responsable',
+  ROLE_CLIENT: 'client',
+  ROLE_EMPLOYEE: 'collaborateur'
+});
+
+module.factory('RoleService', ['$resource', '$q', 'API', '$log', 'USER_ROLES', function ($resource, $q, API, $log, USER_ROLES) {
 
 	var RoleResource = $resource(API.baseUrl + '/roles');
 	var Role = {};
-	
+
 	Role.items = [];
 
 	/**
@@ -31,18 +39,29 @@ module.factory('RoleService', ['$resource', '$q', 'API', '$log', function ($reso
 		}
 
 		@apiError TODO Errors not yet defined
-	*/	
+	*/
 	Role.getRoles = function() {
 		var deferred = $q.defer();
 
-		this.items = RoleResource.query(
-			function(roles) {
-				deferred.resolve(roles);
+		this.items = [
+			{
+				name: 'ROLE_ADMIN',
+				label: USER_ROLES.ROLE_ADMIN
 			},
-			function() {
-				deferred.reject([]);
+			{
+				name: 'ROLE_RESPONSABLE',
+				label: USER_ROLES.ROLE_RESPONSABLE
+			},
+			{
+				name: 'ROLE_CLIENT',
+				label: USER_ROLES.ROLE_CLIENT
+			},
+			{
+				name: 'ROLE_EMPLOYEE',
+				label: USER_ROLES.ROLE_EMPLOYEE
 			}
-		);
+		];
+		deferred.resolve(this.items);
 		return deferred.promise;
 	};
 

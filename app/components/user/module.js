@@ -10,7 +10,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 		templateUrl: 'app/components/user/views/login.html',
 		controller: 'LoginController',
 		data: {
-			authorizedRoles: [USER_ROLES.all]
+			authorizedRoles: [USER_ROLES.ROLE_ALL]
 		}
 	})
 	.state('logout', {
@@ -20,7 +20,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			$state.go('login');
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.all]
+			authorizedRoles: [USER_ROLES.ROLE_ALL]
 		}
 	})
 	.state('main.users', {
@@ -32,7 +32,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+			authorizedRoles: [USER_ROLES.ROLE_ADMIN, USER_ROLES.ROLE_RESPONSABLE]
 		}
 	})
 	.state('main.user-detail', {
@@ -44,7 +44,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+			authorizedRoles: [USER_ROLES.ROLE_ADMIN, USER_ROLES.ROLE_RESPONSABLE]
 		},
 		resolve: {
 			resolvedUser: ['$stateParams', 'UserService', function($stateParams, UserService) {
@@ -61,7 +61,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+			authorizedRoles: [USER_ROLES.ROLE_ADMIN, USER_ROLES.ROLE_RESPONSABLE]
 		}
 	})
 	.state('main.user-edit', {
@@ -73,7 +73,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+			authorizedRoles: [USER_ROLES.ROLE_ADMIN, USER_ROLES.ROLE_RESPONSABLE]
 		},
 		resolve: {
 			resolvedUser: ['$stateParams', 'UserService', function($stateParams, UserService) {
@@ -89,7 +89,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.admin]
+			authorizedRoles: [USER_ROLES.ROLE_ADMIN]
 		},
 		resolve: {
 			resolvedUser: ['$stateParams', 'UserService', function($stateParams, UserService) {
@@ -106,7 +106,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 						};
 
 						$scope.close = function() {
-							$uibModalInstance.dismiss();	
+							$uibModalInstance.dismiss();
 						};
 					},
 					size: 'md'

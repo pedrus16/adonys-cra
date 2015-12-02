@@ -1,11 +1,15 @@
 var module = angular.module('extranetUserModule');
 
-module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API', 'ERRORS', '$log',
-	function ($rootScope, $resource, $state, $q, API, ERRORS, $log) {
+module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API', 'ERRORS', '$log', 'Session',
+	function ($rootScope, $resource, $state, $q, API, ERRORS, $log, Session) {
 
-	var UserResource = $resource(API.baseUrl + '/users/:userId');
-	var page = 1;
-	var User = {};
+	console.log('token', Session.token);
+	// var headers = {
+	// 	Authorization: 'Bearer ' +  Session.token
+	// };
+	var UserResource = $resource(API.baseUrl + '/users/:userId', null),
+	page = 1,
+	User = {};
 
 	User.items = [];
 	User.busy = false;
@@ -75,7 +79,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		]
 
 		@apiError TODO Errors not yet defined.
-	*/	
+	*/
 	User.sort = function() {
 		page = 1;
 		this.end = false;
@@ -123,7 +127,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		});
 
 	};
-	
+
 	/**
 		@api {get} /users/:id Get User
 		@apiVersion 0.0.1
@@ -139,11 +143,11 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		@apiErrorExample Error-Response:
 		HTTP/1.1 404 Not Found
 		"Not Found"
-	*/	
+	*/
 	User.getUser = function(id) {
 		var deferred = $q.defer();
 
-		var user = UserResource.get({userId: id}, 
+		var user = UserResource.get({userId: id},
 			function() {
 				deferred.resolve(user);
 			},
@@ -170,7 +174,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		@apiUse UserSuccess
 
 		@apiError TODO Errors not yet defined
-	*/	
+	*/
 	User.create = function(user) {
 		var self = this;
 		var newUser = UserResource.save({}, user, function() {
@@ -203,7 +207,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		var self = this;
 		var UserUpdateResource = $resource(API.baseUrl + '/users/:userId', null,
 				{
-					'update': { method:'PUT' }
+					'update': { method:'PUT' },
 				}
 			);
 		var editedUser = UserUpdateResource.update({ userId: user.id }, user, function() {
@@ -232,7 +236,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		@apiErrorExample Error-Response:
 		HTTP/1.1 404 Not Found
 		"Not Found"
-	*/	
+	*/
 	User.delete = function(id) {
 		var self = this;
 
@@ -247,7 +251,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		});
 
 	};
- 
+
  	return User;
 
 }]);

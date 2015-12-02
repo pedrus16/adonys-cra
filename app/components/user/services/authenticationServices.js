@@ -9,14 +9,6 @@ module.constant('AUTHENTICATION_EVENTS', {
   notAuthorized: 'auth-not-authorized'
 });
 
-module.constant('USER_ROLES', {
-  all: '*',
-  admin: 'admin',
-  responsable: 'responsable',
-  client: 'client',
-  collaborateur: 'collaborateur'
-});
-
 module.factory('AuthenticationService', ['$http', 'Session', '$q', 'API', function ($http, Session, $q, API) {
   var authService = {};
 
@@ -46,8 +38,8 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', 'API', functi
         data: credentials
       }).then(
         function(response) {
-          var user = response;
-          Session.create(42, 1, 'admin');
+          var user = response.data;
+          Session.create(user.id, user.token, user.id, user.roles);
           deferred.resolve(user);
         },
         function(response) {
@@ -83,6 +75,7 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', 'API', functi
     if (!angular.isArray(authorizedRoles)) {
       authorizedRoles = [authorizedRoles];
     }
+    console.log(authorizedRoles, Session.userRole);
     return (authService.isAuthenticated() &&
       authorizedRoles.indexOf(Session.userRole) !== -1);
   };
@@ -95,35 +88,38 @@ module.service('Session', ['$q', function ($q) {
     var deferred = $q.defer();
     if (angular.isUndefined(this.id) || this.id === null)
     {
-      var data = {id: 42, userId: 1, role: 'admin' }; //TODO Webservice call
+      var data = {id: null, token: 'token123456', userId: 1, role: 'admin' }; //TODO Webservice call
       if (data.id === null) //Check for error
       {
         deferred.reject(null);
         return deferred.promise;
       }
-      this.create(data.id, data.userId, data.role);
+      this.create(data.id, data.token, data.userId, data.role);
     }
     deferred.resolve({
       id: this.id,
+      token: this.token,
       userId: this.userId,
       userRole: this.userRole
     });
     return deferred.promise;
   };
-  this.create = function (sessionId, userId, userRole) {
+  this.create = function (sessionId, token, userId, userRole) {
     this.id = sessionId;
+    this.token = token;
     this.userId = userId;
-    this.userRole = userRole;
+    this.userRole = 'admin';
   };
   this.destroy = function () {
     this.id = null;
+    this.token = null;
     this.userId = null;
     this.userRole = null;
   };
 }]);
 
-module.factory('AuthenticationResolver', ['$q', 'Session',
-  function($q, Session) {
+module.factory('AuthenticationResolver', ['$q', 'Session', '$state',
+  function($q, Session, $state) {
 
   return {
     resolve: function() {
