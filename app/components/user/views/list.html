@@ -1,5 +1,5 @@
 <h2>
-	Utilisateurs 
+	Utilisateurs
 	<button type="button" class="btn btn-primary" ui-sref="main.user-add">
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nouvel utilisateur
 	</button>
@@ -27,15 +27,15 @@
 	<div class="form-group col-sm-12">
 		<label class="">Rôles : </label>
 		<div class="btn-group">
-			<label class="btn btn-default" ng-model="filter.roles[role.name]" uib-btn-checkbox ng-repeat="role in roles track by role.name">
-				{{ role.label }}
+			<label class="btn btn-default" ng-model="filter.roles[key]" uib-btn-checkbox ng-repeat="(key, label) in roles">
+				{{ label }}
 			</label>
 		</div>
 	</div>
 </div>
 
-<table class="table table-responsive" 
-	infinite-scroll="users.nextPage()" 
+<table class="table table-responsive"
+	infinite-scroll="users.nextPage()"
 	infinite-scroll-distance='1'>
 	<tr>
 		<th>
@@ -52,7 +52,7 @@
 		</th>
 		<th>
 			<a href ng-click="toggleSort('lastname')">
-				Prénom 
+				Prénom
 				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'lastname'}"></span>
 			</a>
 		</th>
@@ -83,7 +83,7 @@
 		<td>{{ user.lastname }}</td>
 		<td>{{ user.email }}</td>
 		<td>{{ user.company }}</td>
-		<td>{{ user.role }}</td>
+		<td>{{ roles[user.roles[0]] }}</td>
 		<td class="text-right">
 			<ul class="list-inline">
 				<li>

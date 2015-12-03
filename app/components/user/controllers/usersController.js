@@ -1,6 +1,6 @@
 var module = angular.module('extranetUserModule');
 
-module.controller('UsersController', ['$scope', 'UserService', 'RoleService', 'resolvedRoles', 
+module.controller('UsersController', ['$scope', 'UserService', 'RoleService', 'resolvedRoles',
 	function($scope, UserService, RoleService, resolvedRoles) {
 
 	$scope.users = UserService;

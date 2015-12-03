@@ -3,10 +3,6 @@ var module = angular.module('extranetUserModule');
 module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API', 'ERRORS', '$log', 'Session',
 	function ($rootScope, $resource, $state, $q, API, ERRORS, $log, Session) {
 
-	console.log('token', Session.token);
-	// var headers = {
-	// 	Authorization: 'Bearer ' +  Session.token
-	// };
 	var UserResource = $resource(API.baseUrl + '/users/:userId', null),
 	page = 1,
 	User = {};

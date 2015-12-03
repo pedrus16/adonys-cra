@@ -43,24 +43,25 @@ module.factory('RoleService', ['$resource', '$q', 'API', '$log', 'USER_ROLES', f
 	Role.getRoles = function() {
 		var deferred = $q.defer();
 
-		this.items = [
-			{
-				name: 'ROLE_ADMIN',
-				label: USER_ROLES.ROLE_ADMIN
-			},
-			{
-				name: 'ROLE_RESPONSABLE',
-				label: USER_ROLES.ROLE_RESPONSABLE
-			},
-			{
-				name: 'ROLE_CLIENT',
-				label: USER_ROLES.ROLE_CLIENT
-			},
-			{
-				name: 'ROLE_EMPLOYEE',
-				label: USER_ROLES.ROLE_EMPLOYEE
-			}
-		];
+		// this.items = [
+		// 	{
+		// 		name: 'ROLE_ADMIN',
+		// 		label: USER_ROLES.ROLE_ADMIN
+		// 	},
+		// 	{
+		// 		name: 'ROLE_RESPONSABLE',
+		// 		label: USER_ROLES.ROLE_RESPONSABLE
+		// 	},
+		// 	{
+		// 		name: 'ROLE_CLIENT',
+		// 		label: USER_ROLES.ROLE_CLIENT
+		// 	},
+		// 	{
+		// 		name: 'ROLE_EMPLOYEE',
+		// 		label: USER_ROLES.ROLE_EMPLOYEE
+		// 	}
+		// ];
+    this.items = USER_ROLES;
 		deferred.resolve(this.items);
 		return deferred.promise;
 	};

@@ -83,18 +83,22 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', 'API', functi
   return authService;
 }]);
 
-module.service('Session', ['$q', function ($q) {
+module.service('Session', ['$q', '$cookies', '$http', function ($q, $cookies, $http) {
   this.getUser = function() {
     var deferred = $q.defer();
     if (angular.isUndefined(this.id) || this.id === null)
     {
-      var data = {id: null, token: 'token123456', userId: 1, role: 'admin' }; //TODO Webservice call
-      if (data.id === null) //Check for error
+      var data = $cookies.getObject('user');
+      if (typeof data === 'undefined' || data.id === null) //Check for error
       {
         deferred.reject(null);
         return deferred.promise;
       }
-      this.create(data.id, data.token, data.userId, data.role);
+      this.id = data.id;
+      this.token = data.token;
+      this.userId = data.userId;
+      this.userRole = 'admin';
+      $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
     }
     deferred.resolve({
       id: this.id,
@@ -105,16 +109,25 @@ module.service('Session', ['$q', function ($q) {
     return deferred.promise;
   };
   this.create = function (sessionId, token, userId, userRole) {
+    $cookies.putObject('user', {
+      id: sessionId,
+      token: token,
+      userId: userId,
+      userRole: 'admin'
+    });
     this.id = sessionId;
     this.token = token;
     this.userId = userId;
     this.userRole = 'admin';
+    $http.defaults.headers.common.Authorization = 'Bearer ' + token;
   };
   this.destroy = function () {
+    $cookies.remove('user');
     this.id = null;
     this.token = null;
     this.userId = null;
     this.userRole = null;
+    $http.defaults.headers.common.Authorization = null;
   };
 }]);
 
