@@ -14,7 +14,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 	User.query = '';
 	User.sortBy = '';
 	User.order = '';
-	User.filter = {};
+	User.filters = {};
 
 	/**
 		@apiDefine UserSuccess
@@ -45,13 +45,18 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		@apiGroup User
 
 		@apiParam {String} [search] Research keyword.
+		@apiParam (Filters) {Object} [filters] JSON object converted into URL serialized into an URL readable string.
 		@apiParam (Pagination) {String} [page] Page number.
 		@apiParam (Pagination) {String} [limit] Maximum number of elements to return.
 		@apiParam (Sorting) {String} [sortBy] Name of the property to sort by.
 		@apiParam (Sorting) {String="asc", "desc"} [order] Sort order (ascending/descending).
 
 		@apiParamExample {get} Search-Example:
-		/users?search=John&page=1&limit=20&sortBy=firstname&order=asc
+		/users?filters=%7B%22roles%22:%5B%22ROLE_RESPONSABLE%22,%22ROLE_ADMIN%22%5D%7D&search=John&page=1&limit=20&sortBy=firstname&order=asc
+
+		filters: {
+			roles: ['ROLE_ADMIN', 'ROLE_RESPONSABLE']
+		}
 
 		@apiSuccess {Number} id Users unique ID.
 		@apiSuccess {String} firstname Firstname of the User.
@@ -103,6 +108,9 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		self.busy = true;
 		parameters.page = page;
 		parameters.limit = self.pageSize;
+		if (self.filters) {
+			parameters.filters = self.filters;
+		}
 		if (self.query) {
 			parameters.search = self.query;
 		}

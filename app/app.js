@@ -48,9 +48,6 @@ extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', '$
 		url: '',
 		controller: 'ApplicationController',
 		templateUrl: 'app/shared/views/main.html',
-		data: {
-			authorizedRoles: [USER_ROLES.ROLE_ALL]
-		},
 		resolve: {
             isAuthenticated: ['AuthenticationResolver', function (AuthenticationResolver) {
                 return AuthenticationResolver.resolve();
@@ -72,7 +69,7 @@ extranet.run(['$rootScope', '$state', '$uibModal', '$log', '$http', 'AUTHENTICAT
 	Session.getUser().then(
 		function(user) {
 			$rootScope.$on('$stateChangeStart', function (event, next) {
-				if (next.data.hasOwnProperty('authorizedRoles'))
+				if (next.hasOwnProperty('data') && next.data.hasOwnProperty('authorizedRoles'))
 				{
 					var authorizedRoles = next.data.authorizedRoles;
 					if (!AuthenticationService.isAuthorized(authorizedRoles) && authorizedRoles.indexOf(USER_ROLES.ROLE_ALL) === -1) {

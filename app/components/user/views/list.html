@@ -27,7 +27,7 @@
 	<div class="form-group col-sm-12">
 		<label class="">Rôles : </label>
 		<div class="btn-group">
-			<label class="btn btn-default" ng-model="filter.roles[key]" uib-btn-checkbox ng-repeat="(key, label) in roles">
+			<label class="btn btn-default" ng-model="filter.roles[key]" uib-btn-checkbox ng-repeat="(key, label) in roles" ng-click="toggleFilter('roles', key)">
 				{{ label }}
 			</label>
 		</div>
@@ -69,9 +69,9 @@
 			</a>
 		</th>
 		<th>
-			<a href ng-click="toggleSort('role')">
+			<a href ng-click="toggleSort('roles')">
 				Role
-				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'role'}"></span>
+				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'roles'}"></span>
 			</a>
 		</th>
 		<th class="text-right">Actions</th>

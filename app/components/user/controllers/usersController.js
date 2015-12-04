@@ -25,6 +25,20 @@ module.controller('UsersController', ['$scope', 'UserService', 'RoleService', 'r
 		$scope.users.sort();
 	};
 
+	$scope.toggleFilter = function(field, value) {
+		if (!$scope.users.filters.hasOwnProperty(field)) {
+			$scope.users.filters[field] = [];
+		}
+		var index = $scope.users.filters[field].indexOf(value);
+		if (index === -1) {
+			$scope.users.filters[field].push(value);
+		}
+		else {
+			$scope.users.filters[field].splice(index, 1);
+		}
+		$scope.users.filter();
+	};
+
 	$scope.search = function(query) {
 		$scope.searching = true;
 		$scope.users.search(query);

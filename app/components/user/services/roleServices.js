@@ -1,7 +1,7 @@
 var module = angular.module('extranetUserModule');
 
 module.constant('USER_ROLES', {
-  ROLE_ALL: '*',
+  // ROLE_ALL: '*',
   ROLE_ADMIN: 'admin',
   ROLE_RESPONSABLE: 'responsable',
   ROLE_CLIENT: 'client',

@@ -3,8 +3,8 @@
 
 	<h3>Rôle</h3>
 	<div class="btn-group">
-		<label class="btn btn-primary" ng-model="user.role" uib-btn-radio="role.name" ng-repeat="role in roles track by role.name">
-			{{ role.label }}
+		<label class="btn btn-primary" ng-model="user.role" uib-btn-radio="label" ng-repeat="(key, label) in roles">
+			{{ label }}
 		</label>
 	</div>
 

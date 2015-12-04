@@ -8,19 +8,13 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 	.state('login', {
 		url: '/login',
 		templateUrl: 'app/components/user/views/login.html',
-		controller: 'LoginController',
-		data: {
-			authorizedRoles: [USER_ROLES.ROLE_ALL]
-		}
+		controller: 'LoginController'
 	})
 	.state('logout', {
 		url: '/logout',
 		controller: function(AuthenticationService, $state) {
 			AuthenticationService.logout();
 			$state.go('login');
-		},
-		data: {
-			authorizedRoles: [USER_ROLES.ROLE_ALL]
 		}
 	})
 	.state('main.users', {
