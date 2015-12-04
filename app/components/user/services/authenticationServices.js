@@ -75,7 +75,6 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', 'API', functi
     if (!angular.isArray(authorizedRoles)) {
       authorizedRoles = [authorizedRoles];
     }
-    console.log(authorizedRoles, Session.userRole);
     return (authService.isAuthenticated() &&
       authorizedRoles.indexOf(Session.userRole) !== -1);
   };

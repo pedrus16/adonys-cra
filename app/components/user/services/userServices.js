@@ -10,7 +10,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 	User.items = [];
 	User.busy = false;
 	User.end = false;
-	User.pageSize = 10;
+	User.pageSize = 50;
 	User.query = '';
 	User.sortBy = '';
 	User.order = '';
