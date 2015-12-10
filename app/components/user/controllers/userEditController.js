@@ -8,8 +8,8 @@ module.controller('UserEditController', ['$scope', '$state', 'UserService', 'res
 	$scope.user = resolvedUser;
 
 	$scope.submit = function(user) {
-		UserService.update(user, function() {
-			$state.go('main.user-detail', { userId: user.id }, { reload: true });
+		UserService.update(user, function(updatedUser) {
+			$state.go('main.user-detail', { userId: updatedUser.id }, { reload: true });
 		});
 	};
 

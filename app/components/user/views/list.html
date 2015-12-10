@@ -27,7 +27,7 @@
 	<div class="form-group col-sm-12">
 		<label class="">Rôles : </label>
 		<div class="btn-group">
-			<label class="btn btn-default" ng-model="filter.roles[key]" uib-btn-checkbox ng-repeat="(key, label) in roles" ng-click="toggleFilter('roles', key)">
+			<label class="btn btn-default" ng-model="filter.roles[key]" uib-btn-checkbox ng-repeat="(key, label) in roles" ng-click="toggleFilter('roles', key)" ng-disabled="users.busy">
 				{{ label }}
 			</label>
 		</div>

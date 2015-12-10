@@ -83,6 +83,7 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', 'API', functi
 }]);
 
 module.service('Session', ['$q', '$cookies', '$http', function ($q, $cookies, $http) {
+
   this.getUser = function() {
     var deferred = $q.defer();
     if (angular.isUndefined(this.id) || this.id === null)
@@ -107,6 +108,7 @@ module.service('Session', ['$q', '$cookies', '$http', function ($q, $cookies, $h
     });
     return deferred.promise;
   };
+
   this.create = function (sessionId, token, userId, userRole) {
     $cookies.putObject('user', {
       id: sessionId,
@@ -120,6 +122,7 @@ module.service('Session', ['$q', '$cookies', '$http', function ($q, $cookies, $h
     this.userRole = 'admin';
     $http.defaults.headers.common.Authorization = 'Bearer ' + token;
   };
+
   this.destroy = function () {
     $cookies.remove('user');
     this.id = null;
@@ -128,6 +131,7 @@ module.service('Session', ['$q', '$cookies', '$http', function ($q, $cookies, $h
     this.userRole = null;
     $http.defaults.headers.common.Authorization = null;
   };
+  
 }]);
 
 module.factory('AuthenticationResolver', ['$q', 'Session', '$state',

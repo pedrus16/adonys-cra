@@ -181,7 +181,7 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 	*/
 	User.create = function(user) {
 		var self = this;
-		var newUser = UserResource.save({}, user, function() {
+		var newUser = $resource(API.baseUrl + '/users').save({}, { user: user }, function() {
 			self.items.unshift(newUser);
 		});
 
@@ -214,14 +214,16 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 					'update': { method:'PUT' },
 				}
 			);
-		var editedUser = UserUpdateResource.update({ userId: user.id }, user, function() {
+		var id = user.id;
+		delete user.id;
+		var updatedUser = UserUpdateResource.update({ userId: id }, { user: user }, function() {
 			for (var i = 0; i < self.items.length; i++) {
-				if (self.items[i].id === editedUser.id) {
-					self.items[i] = editedUser;
+				if (self.items[i].id === updatedUser.id) {
+					self.items[i] = updatedUser;
 					break;
 				}
 			}
-			(callback || angular.noop)();
+			(callback || angular.noop)(updatedUser);
 		});
 	};
 
