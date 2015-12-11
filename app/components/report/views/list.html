@@ -1,5 +1,5 @@
 <h2>
-	Comptes Rendus d'Activité 
+	Comptes Rendus d'Activité
 </h2>
 
 <div class="row">
@@ -48,7 +48,7 @@
 </div>
 
 <table class="table table-responsive"
-	infinite-scroll="reports.nextPage()" 
+	infinite-scroll="reports.nextPage()"
 	infinite-scroll-distance='1'>
 	<tr>
 		<th>
@@ -76,9 +76,9 @@
 			</a>
 		</th>
 		<th>
-			<a href ng-click="toggleSort('state')">
+			<a href ng-click="toggleSort('status')">
 				Etat
-				<span class="caret" ng-class="{up: reports.order === 'asc' && reports.sortBy === 'state'}"></span>
+				<span class="caret" ng-class="{up: reports.order === 'asc' && reports.sortBy === 'status'}"></span>
 			</a>
 		</th>
 		<th class="text-right">Actions</th>
@@ -88,17 +88,17 @@
 		<td>{{ report.createdAt * 1000 | date: 'MMMM yyyy' }}</td>
 		<td>
 			<a ui-sref="main.user-detail({ userId: report.client.id })">
-				{{ report.client.name }}
+				{{ report.client.firstname }} {{ report.client.lastname }}
 			</a>
 		</td>
 		<td>
 			<a ui-sref="main.user-detail({ userId: report.employee.id })">
-				{{ report.employee.name }}
+				{{ report.employee.firstname }} {{ report.employee.lastname }}
 			</a>
 		</td>
 		<td>
-			<span class="tag" ng-class="{ 'tag-success': report.state.id === '1', 'tag-info': report.state.id === '2', 'tag-warning': report.state.id === '3' }">
-				{{ report.state.label }}
+			<span class="tag" ng-class="{ 'tag-success': report.status === 1, 'tag-info': report.status === 2, 'tag-warning': report.status === 3 }">
+				{{ statusLabels[report.status] }}
 			</span>
 		</td>
 		<td class="text-right">
@@ -116,4 +116,3 @@
 		</td>
 	</tr>
 </table>
-

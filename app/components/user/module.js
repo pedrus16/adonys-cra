@@ -26,7 +26,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.ROLE_ADMIN, USER_ROLES.ROLE_RESPONSABLE]
+			authorizedRoles: ['ROLE_ADMIN', 'ROLE_RESPONSABLE']
 		}
 	})
 	.state('main.user-detail', {
@@ -38,7 +38,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.ROLE_ADMIN, USER_ROLES.ROLE_RESPONSABLE]
+			authorizedRoles: ['ROLE_ADMIN', 'ROLE_RESPONSABLE']
 		},
 		resolve: {
 			resolvedUser: ['$stateParams', 'UserService', function($stateParams, UserService) {
@@ -55,7 +55,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.ROLE_ADMIN, USER_ROLES.ROLE_RESPONSABLE]
+			authorizedRoles: ['ROLE_ADMIN', 'ROLE_RESPONSABLE']
 		}
 	})
 	.state('main.user-edit', {
@@ -67,7 +67,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.ROLE_ADMIN, USER_ROLES.ROLE_RESPONSABLE]
+			authorizedRoles: ['ROLE_ADMIN', 'ROLE_RESPONSABLE']
 		},
 		resolve: {
 			resolvedUser: ['$stateParams', 'UserService', function($stateParams, UserService) {
@@ -83,7 +83,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.ROLE_ADMIN]
+			authorizedRoles: ['ROLE_ADMIN']
 		},
 		resolve: {
 			resolvedUser: ['$stateParams', 'UserService', function($stateParams, UserService) {

@@ -4,18 +4,11 @@ module.controller('UserAddController', ['$scope', '$state', '$stateParams', 'Use
 	function($scope, $state, $stateParams, UserService, resolvedRoles) {
 
 	$scope.title = 'Créer un utilisateur';
-	$scope.roles = [];
+	$scope.roles = resolvedRoles;
 	$scope.user = {};
 	$scope.userRole = {
 		value: 'ROLE_CLIENT'
 	};
-
-	for (var role in resolvedRoles) {
-		$scope.roles.push({
-			key: role,
-			value: resolvedRoles[role]
-		});
-	}
 
 	$scope.submit = function(user) {
 		user.roles = [

@@ -12,7 +12,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+			authorizedRoles: ['ROLE_ADMIN', 'ROLE_RESPONSABLE']
 		}
 	})
 	.state('main.report-detail', {
@@ -24,7 +24,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+			authorizedRoles: ['ROLE_ADMIN', 'ROLE_RESPONSABLE']
 		},
 		resolve: {
 			resolvedReport: ['$stateParams', 'ReportService', function($stateParams, ReportService) {
@@ -41,7 +41,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+			authorizedRoles: ['ROLE_ADMIN', 'ROLE_RESPONSABLE']
 		}
 	})
 	.state('main.report-edit', {
@@ -53,7 +53,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.admin, USER_ROLES.responsable]
+			authorizedRoles: ['ROLE_ADMIN', 'ROLE_RESPONSABLE']
 		},
 		resolve: {
 			resolvedReport: ['$stateParams', 'ReportService', function($stateParams, ReportService) {
@@ -69,7 +69,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 			}
 		},
 		data: {
-			authorizedRoles: [USER_ROLES.admin]
+			authorizedRoles: ['ROLE_ADMIN']
 		},
 		resolve: {
 			resolvedReport: ['$stateParams', 'ReportService', function($stateParams, ReportService) {
@@ -86,7 +86,7 @@ module.config(['$stateProvider', 'USER_ROLES', function($stateProvider, USER_ROL
 						};
 
 						$scope.close = function() {
-							$uibModalInstance.dismiss();	
+							$uibModalInstance.dismiss();
 						};
 					},
 					size: 'md'

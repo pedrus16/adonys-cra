@@ -7,12 +7,16 @@ module.controller('ReportsController', ['$scope', 'ReportService', function($sco
 	$scope.reports.sortBy = 'id';
 	$scope.reports.order = 'desc';
 	$scope.searching = false;
-
 	$scope.datePickerFormat = 'MMMM-yyyy';
 	$scope.datePickerMin = {};
 	$scope.datePickerMin.opened = false;
 	$scope.datePickerMax = {};
 	$scope.datePickerMax.opened = false;
+	$scope.statusLabels = {
+		1: 'Validé',
+		2: 'A remplir',
+		3: 'A valider'
+	};
 
 	$scope.toggleSort = function(column) {
 		if ($scope.reports.sortBy === column) {

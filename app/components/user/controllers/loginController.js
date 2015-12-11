@@ -10,7 +10,7 @@ module.controller('LoginController', ['$scope', '$rootScope', 'AUTHENTICATION_EV
 
 	$scope.login = function (username, password) {
 		AuthenticationService.login(username, password).then(function (user) {
-			Session.create(user.id, user.token, user.id, 'admin');
+			Session.create(user);
 			$rootScope.$broadcast(AUTHENTICATION_EVENTS.loginSuccess);
 		}, function () {
 			$rootScope.$broadcast(AUTHENTICATION_EVENTS.loginFailed);

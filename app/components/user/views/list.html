@@ -1,6 +1,6 @@
 <h2>
 	Utilisateurs
-	<button type="button" class="btn btn-primary" ui-sref="main.user-add">
+	<button type="button" class="btn btn-primary" ui-sref="main.user-add" ng-if="$root.userHasRole(['ROLE_ADMIN', 'ROLE_RESPONSABLE'])">
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nouvel utilisateur
 	</button>
 </h2>
@@ -27,8 +27,8 @@
 	<div class="form-group col-sm-12">
 		<label class="">Rôles : </label>
 		<div class="btn-group">
-			<label class="btn btn-default" ng-model="filter.roles[key]" uib-btn-checkbox ng-repeat="(key, label) in roles" ng-click="toggleFilter('roles', key)" ng-disabled="users.busy">
-				{{ label }}
+			<label class="btn btn-default" ng-model="filter.roles[role.key]" uib-btn-checkbox ng-repeat="role in roles" ng-click="toggleFilter('roles', role.key)" ng-disabled="users.busy">
+				{{ role.value }}
 			</label>
 		</div>
 	</div>
@@ -38,12 +38,6 @@
 	infinite-scroll="users.nextPage()"
 	infinite-scroll-distance='1'>
 	<tr>
-		<th>
-			<a href ng-click="toggleSort('id')">
-				Id
-				<span class="caret" ng-class="{up: users.order === 'asc' && users.sortBy === 'id'}"></span>
-			</a>
-		</th>
 		<th>
 			<a href ng-click="toggleSort('firstname')">
 				Nom
@@ -78,12 +72,11 @@
 	</tr>
 	 <!-- track by user.id -->
 	<tr ng-repeat="user in users.items" class="animate-repeat">
-		<td>{{ user.id }}</td>
 		<td>{{ user.firstname }}</td>
 		<td>{{ user.lastname }}</td>
 		<td>{{ user.email }}</td>
 		<td>{{ user.company }}</td>
-		<td>{{ roles[user.roles[0]] }}</td>
+		<td>{{ roleService.getLabel(user.roles[0]) }}</td>
 		<td class="text-right">
 			<ul class="list-inline">
 				<li>

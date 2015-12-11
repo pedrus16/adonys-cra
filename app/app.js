@@ -40,7 +40,6 @@ extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', '$
 	$urlRouterProvider.otherwise('/users');
 	$resourceProvider.defaults.stripTrailingSlashes = false;
 	cfpLoadingBarProvider.includeSpinner = false;
-	// $httpprovider.defaults.headers.common = ;
 
 	$stateProvider
 	.state('main', {
@@ -66,8 +65,22 @@ extranet.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', '$
 extranet.run(['$rootScope', '$state', '$uibModal', '$log', '$http', 'AUTHENTICATION_EVENTS', 'AuthenticationService', 'USER_ROLES', 'Session', 'ERRORS',
 	function ($rootScope, $state, $uibModal, $log, $http, AUTHENTICATION_EVENTS, AuthenticationService, USER_ROLES, Session, ERRORS) {
 
+	$rootScope.userHasRole = function(roles) {
+		if (roles && Array.isArray(roles)) {
+			for (var i = 0; i < roles.length; ++i) {
+				if (USER_ROLES.hasOwnProperty(roles[i])) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	$rootScope.user = {};
+
 	Session.getUser().then(
 		function(user) {
+			$rootScope.user = user;
 			$rootScope.$on('$stateChangeStart', function (event, next) {
 				if (next.hasOwnProperty('data') && next.data.hasOwnProperty('authorizedRoles'))
 				{
@@ -111,7 +124,7 @@ extranet.run(['$rootScope', '$state', '$uibModal', '$log', '$http', 'AUTHENTICAT
 	});
 
 	$rootScope.$on(AUTHENTICATION_EVENTS.loginSuccess, function (event, next) {
-		$http.defaults.headers.common.Authorization = 'Bearer ' + Session.token;
+		$http.defaults.headers.common.Authorization = 'Bearer ' + Session.user.token;
 		$state.go('main.users');
   });
 }]);

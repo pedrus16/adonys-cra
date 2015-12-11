@@ -39,7 +39,7 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', 'API', functi
       }).then(
         function(response) {
           var user = response.data;
-          Session.create(user.id, user.token, user.id, user.roles);
+          Session.create(user);
           deferred.resolve(user);
         },
         function(response) {
@@ -68,15 +68,20 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', 'API', functi
   };
 
   authService.isAuthenticated = function () {
-    return !!Session.userId;
+    return !!Session.user.id;
   };
 
   authService.isAuthorized = function (authorizedRoles) {
     if (!angular.isArray(authorizedRoles)) {
       authorizedRoles = [authorizedRoles];
     }
-    return (authService.isAuthenticated() &&
-      authorizedRoles.indexOf(Session.userRole) !== -1);
+    var isAuthorized = false;
+    for (var i = 0; i < authorizedRoles.length; ++i) {
+      if (Session.user.roles.indexOf(authorizedRoles[i]) !== -1) {
+        isAuthorized = true;
+      }
+    }
+    return (authService.isAuthenticated() && isAuthorized);
   };
 
   return authService;
@@ -84,54 +89,37 @@ module.factory('AuthenticationService', ['$http', 'Session', '$q', 'API', functi
 
 module.service('Session', ['$q', '$cookies', '$http', function ($q, $cookies, $http) {
 
+  this.user = {};
+
   this.getUser = function() {
     var deferred = $q.defer();
-    if (angular.isUndefined(this.id) || this.id === null)
+    if (angular.isUndefined(this.user.id) || this.user.id === null)
     {
-      var data = $cookies.getObject('user');
-      if (typeof data === 'undefined' || data.id === null) //Check for error
+      var user = $cookies.getObject('user');
+      if (typeof user === 'undefined' || user.id === null) //Check for error
       {
         deferred.reject(null);
         return deferred.promise;
       }
-      this.id = data.id;
-      this.token = data.token;
-      this.userId = data.userId;
-      this.userRole = 'admin';
-      $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
+      this.user = user;
+      $http.defaults.headers.common.Authorization = 'Bearer ' + this.user.token;
     }
-    deferred.resolve({
-      id: this.id,
-      token: this.token,
-      userId: this.userId,
-      userRole: this.userRole
-    });
+    deferred.resolve(this.user);
     return deferred.promise;
   };
 
-  this.create = function (sessionId, token, userId, userRole) {
-    $cookies.putObject('user', {
-      id: sessionId,
-      token: token,
-      userId: userId,
-      userRole: 'admin'
-    });
-    this.id = sessionId;
-    this.token = token;
-    this.userId = userId;
-    this.userRole = 'admin';
-    $http.defaults.headers.common.Authorization = 'Bearer ' + token;
+  this.create = function (user) {
+    $cookies.putObject('user', user);
+    this.user = user;
+    $http.defaults.headers.common.Authorization = 'Bearer ' + user.token;
   };
 
   this.destroy = function () {
     $cookies.remove('user');
-    this.id = null;
-    this.token = null;
-    this.userId = null;
-    this.userRole = null;
+    this.user = {};
     $http.defaults.headers.common.Authorization = null;
   };
-  
+
 }]);
 
 module.factory('AuthenticationResolver', ['$q', 'Session', '$state',
@@ -141,8 +129,8 @@ module.factory('AuthenticationResolver', ['$q', 'Session', '$state',
     resolve: function() {
       var deferred = $q.defer();
       Session.getUser().then(
-        function(response) {
-          deferred.resolve(response);
+        function(user) {
+          deferred.resolve(user);
         },
         function(error) {
           deferred.reject();

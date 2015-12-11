@@ -21,7 +21,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 
 		@apiSuccess {Number} id Report unique ID.
 		@apiSuccess {Date} createdAt Report creation date.
-		@apiSuccess {Object} state Report current state {"id", "label"}.
+		@apiSuccess {Object} status Report current status {"id", "label"}.
 		@apiSuccess {Array="T", "CP", "RTT", "PC", "F", "M", "CS", "CE"} days Array of 31 days, each holding two values, one for the morning and one for the afternoon.
 		@apiSuccess {Object} employee User object of the employee who wrote the report {"id", "name"}.
 		@apiSuccess {Object} client User object of the client concerned by this report {"id", "name"}.
@@ -32,24 +32,24 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		{
 			id: "42",
 			createdAt: 1420070400,
-			state: {
-				id: "3", 
+			status: {
+				id: "3",
 				label: "A remplir"
 			},
 			days: [
-				["T", "T"], 
-				["T", "T"], 
-				["T", "T"], 
-				["CP", "CP"], 
+				["T", "T"],
+				["T", "T"],
+				["T", "T"],
+				["CP", "CP"],
 				["CS", "T"],
 				…
 			],
 			employee: {
-				id: "1", 
+				id: "1",
 				name: "John Doe"
 			},
 			client: {
-				id: "2", 
+				id: "2",
 				name: "Adonys (Alice Martin)"
 			},
 			notes: "J'ai fait du café."
@@ -73,7 +73,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 
 		@apiSuccess {Number} id Report unique ID.
 		@apiSuccess {Date} createdAt Report creation date.
-		@apiSuccess {Object} state Report current state {"id", "label"}.
+		@apiSuccess {Object} status Report current status {"id", "label"}.
 		@apiSuccess {Array} days Array of 31 days, each holding two values, one for the morning and one for the afternoon.
 		@apiSuccess {Object} employee User object of the employee who wrote the report {"id", "name"}.
 		@apiSuccess {Object} client User object of the client concerned by this report {"id", "name"}.
@@ -86,23 +86,23 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 				id: "42",
 				createdAt: 1420070400,
 				state: {
-					id: "3", 
+					id: "3",
 					label: "A remplir"
 				},
 				days: [
-					["T", "T"], 
-					["T", "T"], 
-					["T", "T"], 
-					["CP", "CP"], 
+					["T", "T"],
+					["T", "T"],
+					["T", "T"],
+					["CP", "CP"],
 					["CS", "T"],
 					…
 				],
 				employee: {
-					id: "1", 
+					id: "1",
 					name: "John Doe"
 				},
 				client: {
-					id: "2", 
+					id: "2",
 					name: "Adonys (Alice Martin)"
 				},
 				notes: "J'ai fait du café."
@@ -111,7 +111,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		]
 
 		@apiError TODO Errors not yet defined.
-	*/	
+	*/
 	Report.sort = function() {
 		page = 1;
 		this.end = false;
@@ -159,7 +159,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		});
 
 	};
-	
+
 	/**
 		@api {get} /reports/:id Get Report
 		@apiVersion 0.0.1
@@ -179,7 +179,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 	Report.getReport = function(id) {
 		var deferred = $q.defer();
 
-		var report = ReportResource.get({reportId: id}, 
+		var report = ReportResource.get({reportId: id},
 			function() {
 				deferred.resolve(report);
 			},
@@ -202,7 +202,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		@apiParam {Object} employee User object of the employee who wrote the report {"id", "name"}.
 		@apiParam {Object} client User object of the client concerned by this report {"id", "name"}.
 		@apiParam {Date} [createdAt] Report creation date.
-		@apiParam {Object} [state] Report current state {"id", "label"}.
+		@apiParam {Object} [status] Report current status {"id", "label"}.
 		@apiParam {String} [notes] The report additional notes.
 
 		@apiUse ReportSuccess
@@ -217,7 +217,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		@apiParam (Days) {String} CE Congé Exceptionnel - Exceptional holiday.
 
 		@apiError TODO Errors not yet defined.
-	*/	
+	*/
 	Report.create = function(report) {
 		var self = this;
 		var newReport = ReportResource.save({}, report, function() {
@@ -237,7 +237,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		@apiParam {Object} [employee] User object of the employee who wrote the report {"id", "name"}.
 		@apiParam {Object} [client] User object of the client concerned by this report {"id", "name"}.
 		@apiParam {Date} [createdAt] Report creation date.
-		@apiParam {Object} [state] Report current state {"id", "label"}.
+		@apiParam {Object} [status] Report current status {"id", "label"}.
 		@apiParam {String} [notes] The report additional notes.
 
 		@apiUse ReportSuccess
@@ -281,7 +281,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		@apiErrorExample Error-Response:
 		HTTP/1.1 404 Not Found
 		"Not Found"
-	*/	
+	*/
 	Report.delete = function(id) {
 		var self = this;
 
@@ -296,7 +296,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		});
 
 	};
- 
+
  	return Report;
 
 }]);

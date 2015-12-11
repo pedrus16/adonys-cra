@@ -15,6 +15,8 @@ module.factory('RoleService', ['$resource', '$q', 'API', '$log', 'USER_ROLES', f
 
 	Role.items = [];
 
+
+
 	/**
 		@api {get} /roles Get Roles
 		@apiVersion 0.0.1
@@ -43,6 +45,13 @@ module.factory('RoleService', ['$resource', '$q', 'API', '$log', 'USER_ROLES', f
 	Role.getRoles = function() {
 		var deferred = $q.defer();
 
+    this.items = [];
+    for (var role in USER_ROLES) {
+      this.items.push({
+        key: role,
+        value: USER_ROLES[role]
+      });
+    }
 		// this.items = [
 		// 	{
 		// 		name: 'ROLE_ADMIN',
@@ -61,10 +70,17 @@ module.factory('RoleService', ['$resource', '$q', 'API', '$log', 'USER_ROLES', f
 		// 		label: USER_ROLES.ROLE_EMPLOYEE
 		// 	}
 		// ];
-    this.items = USER_ROLES;
+    // this.items = USER_ROLES;
 		deferred.resolve(this.items);
 		return deferred.promise;
 	};
+
+  Role.getLabel = function(key) {
+    if (USER_ROLES.hasOwnProperty(key)) {
+      return USER_ROLES[key];
+    }
+    return '';
+  }
 
 	return Role;
 
