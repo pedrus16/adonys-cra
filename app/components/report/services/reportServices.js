@@ -14,13 +14,13 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 	Report.query = '';
 	Report.sortBy = '';
 	Report.order = '';
-	Report.filter = {};
+	Report.filters = {};
 
 	/**
 		@apiDefine ReportSuccess
 
 		@apiSuccess {Number} id Report unique ID.
-		@apiSuccess {Date} createdAt Report creation date.
+		@apiSuccess {Date} period Report creation date.
 		@apiSuccess {Object} status Report current status {"id", "label"}.
 		@apiSuccess {Array="T", "CP", "RTT", "PC", "F", "M", "CS", "CE"} days Array of 31 days, each holding two values, one for the morning and one for the afternoon.
 		@apiSuccess {Object} employee User object of the employee who wrote the report {"id", "name"}.
@@ -31,7 +31,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		HTTP/1.1 200 OK
 		{
 			id: "42",
-			createdAt: 1420070400,
+			period: 1420070400,
 			status: {
 				id: "3",
 				label: "A remplir"
@@ -72,7 +72,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		/reports?search=Adonys&page=1&limit=20&sortBy=id&order=asc
 
 		@apiSuccess {Number} id Report unique ID.
-		@apiSuccess {Date} createdAt Report creation date.
+		@apiSuccess {Date} period Report creation date.
 		@apiSuccess {Object} status Report current status {"id", "label"}.
 		@apiSuccess {Array} days Array of 31 days, each holding two values, one for the morning and one for the afternoon.
 		@apiSuccess {Object} employee User object of the employee who wrote the report {"id", "name"}.
@@ -84,7 +84,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		[
 			{
 				id: "42",
-				createdAt: 1420070400,
+				period: 1420070400,
 				state: {
 					id: "3",
 					label: "A remplir"
@@ -139,6 +139,9 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		self.busy = true;
 		parameters.page = page;
 		parameters.limit = self.pageSize;
+		if (self.filters) {
+			parameters.filters = self.filters;
+		}
 		if (self.query) {
 			parameters.search = self.query;
 		}
@@ -201,7 +204,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		@apiParam {Array} days Array of 31 days, each holding two values, one for the morning and one for the afternoon.
 		@apiParam {Object} employee User object of the employee who wrote the report {"id", "name"}.
 		@apiParam {Object} client User object of the client concerned by this report {"id", "name"}.
-		@apiParam {Date} [createdAt] Report creation date.
+		@apiParam {Date} [period] Report creation date.
 		@apiParam {Object} [status] Report current status {"id", "label"}.
 		@apiParam {String} [notes] The report additional notes.
 
@@ -236,7 +239,7 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 		@apiParam {Array} [days] Array of 31 days, each holding two values, one for the morning and one for the afternoon.
 		@apiParam {Object} [employee] User object of the employee who wrote the report {"id", "name"}.
 		@apiParam {Object} [client] User object of the client concerned by this report {"id", "name"}.
-		@apiParam {Date} [createdAt] Report creation date.
+		@apiParam {Date} [period] Report creation date.
 		@apiParam {Object} [status] Report current status {"id", "label"}.
 		@apiParam {String} [notes] The report additional notes.
 

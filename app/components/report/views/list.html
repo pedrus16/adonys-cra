@@ -28,7 +28,18 @@
 			<div class="row">
 				<div class="form-group col-sm-6">
 					<div class="input-group">
-						<input type="text" class="form-control" is-open="datePickerMin.opened" uib-datepicker-popup="{{ datePickerFormat }}" datepicker-mode="'month'" min-mode="'month'" ng-model="dateMin" placeholder="Période de" max-date="dateMax" current-text="Ce mois-ci" clear-text="Effacer" close-text="Fermer"/>
+						<input type="text" class="form-control"
+							is-open="datePickerMin.opened"
+							uib-datepicker-popup="{{ datePickerFormat }}"
+							datepicker-mode="'month'"
+							min-mode="'month'"
+							ng-model="dateMin"
+							placeholder="Période de"
+							max-date="dateMax"
+							current-text="Ce mois-ci"
+							clear-text="Effacer"
+							close-text="Fermer"
+							ng-change="filter()"/>
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="datePickerMin.opened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
@@ -36,7 +47,18 @@
 				</div>
 				<div class="form-group col-sm-6">
 					<div class="input-group">
-						<input type="text" class="form-control" is-open="datePickerMax.opened" uib-datepicker-popup="{{ datePickerFormat }}" datepicker-mode="'month'" min-mode="'month'" ng-model="dateMax" placeholder="à" min-date="dateMin" current-text="Ce mois-ci" clear-text="Effacer" close-text="Fermer"/>
+						<input type="text" class="form-control"
+							is-open="datePickerMax.opened"
+							uib-datepicker-popup="{{ datePickerFormat }}"
+							datepicker-mode="'month'"
+							min-mode="'month'"
+							ng-model="dateMax"
+							placeholder="à"
+							min-date="dateMin"
+							current-text="Ce mois-ci"
+							clear-text="Effacer"
+							close-text="Fermer"
+							ng-change="filter()"/>
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="datePickerMax.opened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
@@ -58,9 +80,9 @@
 			</a>
 		</th>
 		<th>
-			<a href ng-click="toggleSort('createdAt')">
+			<a href ng-click="toggleSort('period')">
 				Période
-				<span class="caret" ng-class="{up: reports.order === 'asc' && reports.sortBy === 'createdAt'}"></span>
+				<span class="caret" ng-class="{up: reports.order === 'asc' && reports.sortBy === 'period'}"></span>
 			</a>
 		</th>
 		<th>
@@ -85,7 +107,7 @@
 	</tr>
 	<tr ng-repeat="report in reports.items" class="animate-repeat">
 		<td>{{ report.id }}</td>
-		<td>{{ report.createdAt * 1000 | date: 'MMMM yyyy' }}</td>
+		<td>{{ report.period | date: 'MMMM yyyy' }}</td>
 		<td>
 			<a ui-sref="main.user-detail({ userId: report.client.id })">
 				{{ report.client.firstname }} {{ report.client.lastname }}

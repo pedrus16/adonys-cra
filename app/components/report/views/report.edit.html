@@ -20,7 +20,7 @@
 	<div class="form-group">
 		<div class="col-sm-10">
 			<div class="input-group">
-				<input type="text" class="form-control" is-open="datePickerMin.opened" uib-datepicker-popup="{{ datePickerFormat }}" datepicker-mode="'month'" min-mode="'month'" ng-model="report.createdAt" placeholder="Période de" max-date="dateMax" current-text="Ce mois-ci" clear-text="Effacer" close-text="Fermer"/>
+				<input type="text" class="form-control" is-open="datePickerMin.opened" uib-datepicker-popup="{{ datePickerFormat }}" datepicker-mode="'month'" min-mode="'month'" ng-model="report.period" placeholder="Période de" max-date="dateMax" current-text="Ce mois-ci" clear-text="Effacer" close-text="Fermer"/>
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default" ng-click="datePickerMin.opened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
 				</span>
@@ -28,6 +28,6 @@
 		</div>
 	</div>
 
-	<adonys-calendar active-month="{{ report.createdAt * 1000 | date: 'MM' }}" active-year="{{ report.createdAt * 1000 | date: 'yyyy' }}" ng-model="report.days"></adonys-calendar>
+	<adonys-calendar active-month="{{ report.period * 1000 | date: 'MM' }}" active-year="{{ report.period * 1000 | date: 'yyyy' }}" ng-model="report.days"></adonys-calendar>
 
 </form>
