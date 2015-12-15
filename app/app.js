@@ -76,11 +76,11 @@ extranet.run(['$rootScope', '$state', '$uibModal', '$log', '$http', 'AUTHENTICAT
 		return false;
 	}
 
-	$rootScope.user = {};
+	$rootScope.loggedUser = {};
 
 	Session.getUser().then(
 		function(user) {
-			$rootScope.user = user;
+			$rootScope.loggedUser = user;
 			$rootScope.$on('$stateChangeStart', function (event, next) {
 				if (next.hasOwnProperty('data') && next.data.hasOwnProperty('authorizedRoles'))
 				{

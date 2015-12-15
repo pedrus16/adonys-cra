@@ -1,19 +1,41 @@
+<script type="text/ng-template" id="customTemplate.html">
+  <a>
+			<span ng-bind-html="(match.model.firstname + ' ' + match.model.lastname) | uibTypeaheadHighlight:query"></span>
+  </a>
+</script>
+
 <h2 ng-if="title">{{ title }}</h2>
 <form class="form-horizontal" ng-submit="submit(report)" name="form" novalidate>
 
-	<div class="form-group has-feedback" ng-class="{ 'has-success': (form.client.$valid && form.client.$dirty), 'has-error': (form.client.$invalid && form.client.$dirty) }">
-		<div class="col-sm-10">
-			<label class="control-label sr-only" for="client">Client</label>
-			<input type="text" class="form-control" placeholder="Prénom" name="client" ng-model="report.client.name" required>
-			<span class="glyphicon form-control-feedback" aria-hidden="true" ng-class="{ 'glyphicon-ok': (form.client.$valid && form.client.$dirty), 'glyphicon-remove': (form.client.$invalid && form.client.$dirty) }"></span>
+	<div class="form-group has-feedback">
+		<div class="col-xs-12">
+			<input type="text" ng-model="report.client" placeholder="Client"
+			uib-typeahead="user for user in getUserTypeAhead($viewValue)"
+			typeahead-loading="loadingLocations"
+			typeahead-no-results="noResults"
+			class="form-control"
+			typeahead-template-url="customTemplate.html"
+			typeahead-input-formatter="formatLabel($model)">
+			<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+			<div ng-show="noResults">
+				<i class="glyphicon glyphicon-remove"></i> No Results Found
+			</div>
 		</div>
 	</div>
 
-	<div class="form-group has-feedback" ng-class="{ 'has-success': (form.employee.$valid && form.employee.$dirty), 'has-error': (form.employee.$invalid && form.employee.$dirty) }">
-		<div class="col-sm-10">
-			<label class="control-label sr-only" for="employee">Collaborateur</label>
-			<input type="text" class="form-control" placeholder="Prénom" name="employee" ng-model="report.employee.name" required>
-			<span class="glyphicon form-control-feedback" aria-hidden="true" ng-class="{ 'glyphicon-ok': (form.employee.$valid && form.employee.$dirty), 'glyphicon-remove': (form.employee.$invalid && form.employee.$dirty) }"></span>
+	<div class="form-group has-feedback">
+		<div class="col-xs-12">
+			<input type="text" ng-model="report.employee" placeholder="Collaborateur"
+			uib-typeahead="user for user in getUserTypeAhead($viewValue)"
+			typeahead-loading="loadingLocations"
+			typeahead-no-results="noResults"
+			class="form-control"
+			typeahead-template-url="customTemplate.html"
+			typeahead-input-formatter="formatLabel($model)">
+			<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+			<div ng-show="noResults">
+				<i class="glyphicon glyphicon-remove"></i> No Results Found
+			</div>
 		</div>
 	</div>
 
@@ -28,6 +50,18 @@
 		</div>
 	</div>
 
-	<adonys-calendar active-month="{{ report.period * 1000 | date: 'MM' }}" active-year="{{ report.period * 1000 | date: 'yyyy' }}" ng-model="report.days"></adonys-calendar>
+	<div class="form-group">
+		<div class="col-xs-12">
+			<adonys-calendar active-month="{{ report.period | date: 'MM' }}" active-year="{{ report.period | date: 'yyyy' }}" ng-model="report.days"></adonys-calendar>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-10">
+			<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
+				<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Enregistrer
+			</button>
+		</div>
+	</div>
 
 </form>

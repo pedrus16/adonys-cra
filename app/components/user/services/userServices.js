@@ -93,14 +93,14 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 		this.nextPage(true);
 	};
 
-	User.search = function(query) {
+	User.search = function(query, callback) {
 		page = 1;
 		this.end = false;
 		User.query = query;
-		this.nextPage(true);
+		this.nextPage(true, callback);
 	};
 
-	User.nextPage = function(reset) {
+	User.nextPage = function(reset, callback) {
 		if (this.busy || this.end) return;
 		var self = this;
 		var parameters = {};
@@ -128,8 +128,9 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 			if (users.length < self.pageSize) {
 				self.end = true;
 			}
-		});
 
+		});
+		(callback || angular.noop)();
 	};
 
 	/**
@@ -256,6 +257,23 @@ module.factory('UserService', ['$rootScope', '$resource', '$state', '$q', 'API',
 			}
 		});
 
+	};
+
+	User.typeAhead = function(query) {
+		var deferred = $q.defer();
+		var users = $resource(API.baseUrl + '/users', {
+			search: query
+		}).query(function() {
+			deferred.resolve(users);
+			// deferred.resolve([{
+			// 	name: 'Salut coco',
+			// 	firstname: 'Salut',
+			// 	lastname: 'coco',
+			// 	id: 42,
+			// 	email: 'salut.coco@gmail.com'
+			// }]);
+		});
+		return deferred.promise;
 	};
 
  	return User;

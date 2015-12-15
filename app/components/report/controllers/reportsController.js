@@ -18,12 +18,6 @@ module.controller('ReportsController', ['$scope', '$filter', 'ReportService', fu
 		3: 'A valider'
 	};
 
-	$scope.filter = function() {
-		$scope.reports.filters.periodFrom = $filter('date')($scope.dateMin, 'yyyy-MM-dd'); //$filter('date')($scope.dateMin, 'shortDate');
-		$scope.reports.filters.periodTo =  $filter('date')($scope.dateMax, 'yyyy-MM-dd'); //$filter('date')($scope.dateMax, 'shortDate');
-		$scope.reports.filter();
-	}
-
 	$scope.toggleSort = function(column) {
 		if ($scope.reports.sortBy === column) {
 			$scope.reports.order = $scope.reports.order === 'asc' ? 'desc' : 'asc';
@@ -34,6 +28,26 @@ module.controller('ReportsController', ['$scope', '$filter', 'ReportService', fu
 		}
 		$scope.reports.sort();
 	};
+
+	$scope.toggleFilter = function(field, value) {
+		if (!$scope.reports.filters.hasOwnProperty(field)) {
+			$scope.reports.filters[field] = [];
+		}
+		var index = $scope.reports.filters[field].indexOf(value);
+		if (index === -1) {
+			$scope.reports.filters[field].push(value);
+		}
+		else {
+			$scope.reports.filters[field].splice(index, 1);
+		}
+		$scope.reports.filter();
+	};
+
+	$scope.filter = function() {
+		$scope.reports.filters.periodFrom = $filter('date')($scope.dateMin, 'yyyy-MM-dd'); //$filter('date')($scope.dateMin, 'shortDate');
+		$scope.reports.filters.periodTo =  $filter('date')($scope.dateMax, 'yyyy-MM-dd'); //$filter('date')($scope.dateMax, 'shortDate');
+		$scope.reports.filter();
+	}
 
 	$scope.search = function(query) {
 		$scope.searching = true;

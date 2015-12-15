@@ -1,12 +1,12 @@
-<h3>{{ report.client.name }} <small>Client</small></h3>
-<h3>{{ report.employee.name }} <small>Collaborateur</small></h3>
+<h3>{{ report.client.firstname }} {{ report.client.lastname }} <small>Client</small></h3>
+<h3>{{ report.employee.firstname }} {{ report.employee.lastname }} <small>Collaborateur</small></h3>
 
 <h2>Feuille de presence</h2>
 <div class="form-group">
-	<adonys-calendar ng-model="report.days" active-month="{{ report.period * 1000 | date: 'MM' }}" active-year="{{ report.period * 1000 | date: 'yyyy' }}"></adonys-calendar>
+	<adonys-calendar ng-model="report.days" active-month="{{ report.period | date: 'MM' }}" active-year="{{ report.period | date: 'yyyy' }}"></adonys-calendar>
 </div>
 
-<h2>Detail des activites</h2>
+<h2 ng-if="report.notes">Detail des activites</h2>
 <p>{{ report.notes }}</p>
 
 <button type="button" class="btn btn-primary" ui-sref="main.report-delete({ reportId: report.id })">Supprimer le compte rendu</button>

@@ -16,7 +16,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li class="visible-xs"><a ui-sref="main.users"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Utilisateurs</a></li>
 				<li class="visible-xs"><a ui-sref="main.reports"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Comptes Rendus d'Activité</a></li>
-				<li><a ui-sref="logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Déconnexion <small>({{ $root.user.email }})</small></a></li>
+				<li><a ui-sref="logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Déconnexion <small>({{ $root.loggedUser.email }})</small></a></li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
