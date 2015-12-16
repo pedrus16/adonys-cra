@@ -47,7 +47,7 @@ module.controller('ReportsController', ['$scope', '$filter', 'ReportService', fu
 		$scope.reports.filters.periodFrom = $filter('date')($scope.dateMin, 'yyyy-MM-dd'); //$filter('date')($scope.dateMin, 'shortDate');
 		$scope.reports.filters.periodTo =  $filter('date')($scope.dateMax, 'yyyy-MM-dd'); //$filter('date')($scope.dateMax, 'shortDate');
 		$scope.reports.filter();
-	}
+	};
 
 	$scope.search = function(query) {
 		$scope.searching = true;

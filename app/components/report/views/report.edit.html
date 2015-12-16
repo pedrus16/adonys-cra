@@ -8,7 +8,7 @@
 <form class="form-horizontal" ng-submit="submit(report)" name="form" novalidate>
 
 	<div class="form-group has-feedback">
-		<div class="col-xs-12">
+		<div class="col-sm-10">
 			<input type="text" ng-model="report.client" placeholder="Client"
 			uib-typeahead="user for user in getUserTypeAhead($viewValue)"
 			typeahead-loading="loadingLocations"
@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="form-group has-feedback">
-		<div class="col-xs-12">
+		<div class="col-sm-10">
 			<input type="text" ng-model="report.employee" placeholder="Collaborateur"
 			uib-typeahead="user for user in getUserTypeAhead($viewValue)"
 			typeahead-loading="loadingLocations"
@@ -39,22 +39,16 @@
 		</div>
 	</div>
 
+  <h2>Feuille de presence</h2>
 	<div class="form-group">
-		<div class="col-sm-10">
-			<div class="input-group">
-				<input type="text" class="form-control" is-open="datePickerMin.opened" uib-datepicker-popup="{{ datePickerFormat }}" datepicker-mode="'month'" min-mode="'month'" ng-model="report.period" placeholder="Période de" max-date="dateMax" current-text="Ce mois-ci" clear-text="Effacer" close-text="Fermer"/>
-				<span class="input-group-btn">
-					<button type="button" class="btn btn-default" ng-click="datePickerMin.opened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
-				</span>
-			</div>
+		<div class="col-sm-7 col-md-5 col-lg-4">
+			<adonys-calendar-editor ng-model="report.days" active-date="report.period"></adonys-calendar-editor>
 		</div>
+    <div class="col-sm-5 col-md-7 col-lg-8">
+      <adonys-legend></adonys-legend>
+    </div>
 	</div>
-
-	<div class="form-group">
-		<div class="col-xs-12">
-			<adonys-calendar active-month="{{ report.period | date: 'MM' }}" active-year="{{ report.period | date: 'yyyy' }}" ng-model="report.days"></adonys-calendar>
-		</div>
-	</div>
+  <h4><strong>Total : </strong>{{ report.total }} jour(s)</h4>
 
 	<div class="form-group">
 		<div class="col-sm-10">

@@ -48,20 +48,20 @@ $calendar-size: 300px;
 					height: 50%;
 					width: 100%;
 
-					&.day-success {
-						color: #ffffff;
-						background-color: $tag-success;
-					}
-
-					&.day-warning {
-						color: #ffffff;
-						background-color: $tag-warning;	
-					}
-
-					&.day-info {
-						color: #ffffff;
-						background-color: $tag-info;
-					}
+					// &.day-success {
+					// 	color: #ffffff;
+					// 	background-color: $tag-success;
+					// }
+					//
+					// &.day-warning {
+					// 	color: #ffffff;
+					// 	background-color: $tag-warning;
+					// }
+					//
+					// &.day-info {
+					// 	color: #ffffff;
+					// 	background-color: $tag-info;
+					// }
 				}
 
 				.half:first-child {
@@ -92,4 +92,55 @@ $calendar-size: 300px;
 			}
 		}
 	}
+}
+
+.legend-badge {
+	display: inline-block;
+	height: 1em;
+	width: 1em;
+	background-color: rgba(0, 0, 0, 0.1);
+	vertical-align: middle;
+	border-radius: 2px;
+	margin-right: 2px;
+	margin-bottom: 2px;
+}
+
+.day-T {
+	color: #ffffff;
+	background-color: $tag-success;
+}
+
+.day-CP {
+	color: #ffffff;
+	background-color: $tag-warning;
+}
+
+.day-RTT {
+	color: #ffffff;
+	background-color: $tag-info;
+}
+
+.day-PC {
+	color: #ffffff;
+	background-color: $tag-info;
+}
+
+.day-F {
+	color: #ffffff;
+	background-color: $tag-info;
+}
+
+.day-M {
+	color: #ffffff;
+	background-color: $tag-info;
+}
+
+.day-CS {
+	color: #ffffff;
+	background-color: $tag-info;
+}
+
+.day-CE {
+	color: #ffffff;
+	background-color: $tag-info;
 }

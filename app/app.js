@@ -74,7 +74,7 @@ extranet.run(['$rootScope', '$state', '$uibModal', '$log', '$http', 'AUTHENTICAT
 			}
 		}
 		return false;
-	}
+	};
 
 	$rootScope.loggedUser = {};
 

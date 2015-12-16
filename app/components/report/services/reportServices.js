@@ -184,6 +184,18 @@ module.factory('ReportService', ['$rootScope', '$resource', '$state', '$q', 'API
 
 		var report = ReportResource.get({reportId: id},
 			function() {
+				report.total = 0;
+				for (var i = 0; i < report.days.length; ++i) {
+					if (report.days[i].length >= 2) {
+						if (report.days[i][0] === 'T'){
+							++report.total;
+						}
+						if (report.days[i][1] === 'T'){
+							++report.total;
+						}
+					}
+				}
+				report.total *= 0.5;
 				deferred.resolve(report);
 			},
 			function(error) {

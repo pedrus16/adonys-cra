@@ -16,7 +16,7 @@ module.controller('ReportEditController', ['$scope', '$state', '$q', 'ReportServ
 			return user.firstname + ' ' + user.lastname;
 		}
 		return '';
-	}
+	};
 
 	$scope.submit = function(report) {
 		ReportService.update(report, function() {
